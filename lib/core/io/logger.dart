@@ -11,6 +11,7 @@ const userAlreadyExist = 200;
 const fetchMessages = 201;
 const chatSwitched = 301;
 const chatCompanion = 302;
+const serverClosing = -1;
 
 void streamLog(int code, String message) {
   print(createResponse(code, message));

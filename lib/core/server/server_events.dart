@@ -112,5 +112,15 @@ void handleRequests(WebSocketSession session, Client client, String source) {
         session.send(createResponse(chatCompanion, clientsOnSameChats));
       });
     }
+  } else if (data['type'] == 'server-termination') {
+    serverContext.close();
   }
 }
+
+void terminateAllSessions(){
+  for (var session in sessionMap.values) {
+    session.send(createResponse(serverClosing, "Session Terminated"));
+    session.close();
+  }
+}
+

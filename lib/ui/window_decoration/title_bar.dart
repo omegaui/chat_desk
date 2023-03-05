@@ -1,4 +1,5 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:chat_desk/io/server_handler.dart';
 import 'package:chat_desk/main.dart';
 import 'package:chat_desk/ui/screens/home_screen.dart';
 import 'package:chat_desk/ui/utils.dart';
@@ -88,6 +89,7 @@ class WindowButtons extends StatelessWidget {
           child: WindowButton(
             color: Colors.red,
             onPressed: () {
+              serverHandler?.requestClose();
               appWindow.close();
             },
           ),

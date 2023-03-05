@@ -5,6 +5,7 @@ import 'package:chat_desk/core/client/client.dart';
 import 'package:chat_desk/core/io/app_manager.dart';
 import 'package:chat_desk/core/io/logger.dart';
 import 'package:chat_desk/core/io/message.dart';
+import 'package:chat_desk/main.dart';
 import 'package:chat_desk/ui/screens/chat_room/chat_room.dart';
 import 'package:chat_desk/ui/screens/chat_room/user_tabs.dart';
 import 'package:chat_desk/ui/screens/home_screen.dart';
@@ -43,6 +44,12 @@ class ServerHandler {
         print(response);
       }
     });
+  }
+
+  void requestClose(){
+    thisClient.request(jsonEncode({
+      "type": "server-termination"
+    }));
   }
 }
 
@@ -92,6 +99,12 @@ void joinServer(String host, int port,
         for (var id in chatKeys.keys) {
           chatKeys[id]?.currentState?.rebuildDock(companionMap[companionMap[id]] == id);
         }
+      } else if (response['code'] == serverClosing) {
+        connectedToServer = false;
+        pop();
+        Future.delayed(const Duration(seconds: 1), () {
+          setStatus(response['message'], Colors.indigo);
+        });
       }
     } else if (response['type'] == 'text') {
       chatKeys[response['sender']]

@@ -450,7 +450,7 @@ class _JoinButtonState extends State<JoinButton> {
         setState(() {
           connecting = true;
         });
-        if (!(await isServerExists(
+        if (!(await doesServerExists(
             ipController.text, int.parse(portController.text)))) {
           setStatus("Server doesn't exists!", Colors.red.shade300);
           setState(() {
@@ -562,7 +562,7 @@ class _HostButtonState extends State<HostButton> {
         setState(() {
           connecting = true;
         });
-        if (await isServerExists(
+        if (await doesServerExists(
             ipController.text, int.parse(portController.text))) {
           setStatus("Server already running!", Colors.red.shade300);
           setState(() {

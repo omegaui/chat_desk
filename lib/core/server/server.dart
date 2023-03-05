@@ -26,6 +26,9 @@ void main() async {
       code = config['code'];
       streamLog(initSuccess, "Server Started Successfully! $address");
     },
+    onWillClose: () {
+      terminateAllSessions();
+    }
   );
 }
 
@@ -43,7 +46,7 @@ void closeServer() async {
   await serverContext.close();
 }
 
-Future<bool> isServerExists(String host, int port) async {
+Future<bool> doesServerExists(String host, int port) async {
   try {
     var response = await http.get(Uri.parse("http://$host:$port/ping"));
     return response.statusCode == 200;
