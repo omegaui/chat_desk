@@ -34,7 +34,7 @@ class ChatAreaState extends State<ChatArea> {
     });
   }
 
-  void rebuildDock(bool value){
+  void rebuildDock(bool value) {
     onlineTrackerKey.currentState?.rebuild(value);
   }
 
@@ -268,12 +268,11 @@ class OnlineTracker extends StatefulWidget {
 }
 
 class OnlineTrackerState extends State<OnlineTracker> {
-
   bool show = false;
 
   void rebuild(bool show) => setState(() {
-    this.show = show;
-  });
+        this.show = show;
+      });
 
   @override
   Widget build(BuildContext context) {

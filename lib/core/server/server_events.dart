@@ -117,10 +117,9 @@ void handleRequests(WebSocketSession session, Client client, String source) {
   }
 }
 
-void terminateAllSessions(){
+void terminateAllSessions() {
   for (var session in sessionMap.values) {
     session.send(createResponse(serverClosing, "Session Terminated"));
     session.close();
   }
 }
-

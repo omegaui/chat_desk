@@ -46,10 +46,8 @@ class ServerHandler {
     });
   }
 
-  void requestClose(){
-    thisClient.request(jsonEncode({
-      "type": "server-termination"
-    }));
+  void requestClose() {
+    thisClient.request(jsonEncode({"type": "server-termination"}));
   }
 }
 
@@ -97,7 +95,9 @@ void joinServer(String host, int port,
       } else if (response['code'] == chatCompanion) {
         var companionMap = response['message'];
         for (var id in chatKeys.keys) {
-          chatKeys[id]?.currentState?.rebuildDock(companionMap[companionMap[id]] == id);
+          chatKeys[id]
+              ?.currentState
+              ?.rebuildDock(companionMap[companionMap[id]] == id);
         }
       } else if (response['code'] == serverClosing) {
         connectedToServer = false;

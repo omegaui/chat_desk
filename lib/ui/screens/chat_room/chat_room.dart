@@ -13,12 +13,9 @@ GlobalKey<UserTabsState> userTabKey = GlobalKey();
 ChatArea? currentChatArea;
 
 void chatWith(ChatArea? area) {
-  if(area == null){
-    thisClient.notifyChange(jsonEncode({
-      "type": "client-side-change",
-      "code": chatSwitched,
-      "with-id": ""
-    }));
+  if (area == null) {
+    thisClient.notifyChange(jsonEncode(
+        {"type": "client-side-change", "code": chatSwitched, "with-id": ""}));
   }
   currentChatArea = area;
   chatRoomKey.currentState?.rebuild(area);
