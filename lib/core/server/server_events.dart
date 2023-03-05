@@ -76,9 +76,10 @@ void notifyExitOf(WebSocketSession session, Client client) {
 
 void handleRequests(WebSocketSession session, Client client, String source) {
   dynamic data = jsonDecode(source);
-  if (data['type'] == 'text') {
+  if (data['type'] == 'text' || data['type'] == 'message') {
     var time = DateTime.now();
     messages.add(Message(
+        type: data['type'],
         sender: client.id,
         message: data["message"],
         receiver: data['receiver'],

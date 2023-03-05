@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:chat_desk/core/io/logger.dart';
 import 'package:chat_desk/core/server/server_events.dart';
-import 'package:shelf_plus/shelf_plus.dart';
 import 'package:http/http.dart' as http;
+import 'package:shelf_plus/shelf_plus.dart';
 
 late ShelfRunContext serverContext;
 

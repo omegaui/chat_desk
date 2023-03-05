@@ -42,6 +42,7 @@ class ChatAreaState extends State<ChatArea> {
     setState(() {
       var time = DateTime.now();
       messages.add(Message(
+          type: "text",
           sender: widget.client.id,
           message: text,
           receiver: thisClient.id,
@@ -134,6 +135,7 @@ class ChatAreaState extends State<ChatArea> {
                         setState(() {
                           var time = DateTime.now();
                           messages.add(Message(
+                              type: "text",
                               sender: thisClient.id,
                               message: messageController.text,
                               receiver: widget.client.id,
@@ -237,14 +239,20 @@ class Chat extends StatelessWidget {
                 fontSize: 14,
                 color: Colors.grey.withOpacity(0.6)),
           ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-          child: Text(
-            message.message,
-            style: const TextStyle(
-                fontFamily: "Sen", fontSize: 16, color: Colors.white),
+        if (message.type == 'text')
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            child: Text(
+              message.message,
+              style: const TextStyle(
+                  fontFamily: "Sen", fontSize: 16, color: Colors.white),
+            ),
           ),
-        ),
+        if (message.type == 'image')
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            child: Image.memory(base64Url.decode(message.message)),
+          ),
         if (message.sender != thisClient.id)
           Text(
             message.time,

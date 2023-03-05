@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:chat_desk/core/io/logger.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -22,8 +23,8 @@ class Client {
     channel.stream.listen(listener);
   }
 
-  void transmit(String receiver, String message) {
-    channel.sink.add(createMessage(receiver, message));
+  void transmit(String receiver, dynamic message, {type = "text"}) {
+    channel.sink.add(createMessage(receiver, message, type));
   }
 
   void request(dynamic data) {
@@ -60,22 +61,22 @@ class Client {
 }
 
 void main() {
-  Client(
-          id: "corpus",
-          description: "Just Another User",
-          code: "code",
-          avatar: base64UrlEncode(
-              File("/home/omegaui/Downloads/icons8-package-94.png")
-                  .readAsBytesSync()))
-      .connect("127.0.0.1", 8080, (p0) {});
-  Client(
-          id: "zeno",
-          description: "Just Another User",
-          code: "code",
-          avatar: base64UrlEncode(
-              File("/home/omegaui/Downloads/icons8-kawaii-shellfish-96.png")
-                  .readAsBytesSync()))
-      .connect("127.0.0.1", 8080, (p0) {});
+  // Client(
+  //         id: "corpus",
+  //         description: "Just Another User",
+  //         code: "code",
+  //         avatar: base64UrlEncode(
+  //             File("/home/omegaui/Downloads/icons8-package-94.png")
+  //                 .readAsBytesSync()))
+  //     .connect("127.0.0.1", 8080, (p0) {});
+  // Client(
+  //         id: "zeno",
+  //         description: "Just Another User",
+  //         code: "code",
+  //         avatar: base64UrlEncode(
+  //             File("/home/omegaui/Downloads/icons8-kawaii-shellfish-96.png")
+  //                 .readAsBytesSync()))
+  //     .connect("127.0.0.1", 8080, (p0) {});
   // Client(
   //     id: "_mike",
   //     description: "Just Another User",
@@ -101,21 +102,27 @@ void main() {
   //
   // });
   //
-  // var client = Client(
-  //     id: "blaze",
-  //     description: "Just Another User",
-  //     code: "code",
-  //     avatar: base64UrlEncode(
-  //         File("/home/omegaui/Downloads/icons8-linux-96.png")
-  //             .readAsBytesSync()))
-  //   ..connect("127.0.0.1", 8080, (p0) {
-  //     print(p0);
-  //   });
-  //
-  // Future.delayed(const Duration(seconds: 4), () async {
-  //   client.transmit("omegaui", "hello");
-  //   client.transmit("omegaui", "What are you doing?");
-  // });
+  var client = Client(
+      id: "blaze",
+      description: "Just Another User",
+      code: "code",
+      avatar: base64UrlEncode(
+          File("/home/omegaui/Downloads/icons8-linux-96.png")
+              .readAsBytesSync()))
+    ..connect("127.0.0.1", 8080, (p0) {
+      print(p0);
+    });
+
+  Future.delayed(const Duration(seconds: 4), () async {
+    client.transmit("omegaui", "hello");
+    client.transmit("omegaui", "What are you doing?");
+    client.transmit(
+        "omegaui",
+        base64UrlEncode(
+            File("/home/omegaui/Pictures/Webcam/2022-10-02-213350.jpg")
+                .readAsBytesSync()),
+        type: "image");
+  });
 
   // Future.delayed(const Duration(seconds: 4), () async {
   //   client.request(jsonEncode({

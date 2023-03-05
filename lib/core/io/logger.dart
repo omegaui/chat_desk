@@ -26,8 +26,8 @@ String createResponse(int code, dynamic response, {dynamic cause}) {
   });
 }
 
-String createMessage(String receiver, dynamic message) {
-  return jsonEncode({"type": "text", "message": message, "receiver": receiver});
+String createMessage(String receiver, dynamic message, String type) {
+  return jsonEncode({"type": type, "message": message, "receiver": receiver});
 }
 
 String sendMessage(String sender, dynamic message) {

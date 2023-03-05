@@ -213,6 +213,7 @@ class BlinkPoint extends StatefulWidget {
 class _BlinkPointState extends State<BlinkPoint>
     with SingleTickerProviderStateMixin<BlinkPoint> {
   late AnimationController controller;
+
   @override
   void initState() {
     super.initState();
