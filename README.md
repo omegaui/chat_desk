@@ -4,6 +4,18 @@
 # chat_desk (in the making)
 A self-hosted chat application for desktop written in Flutter!
 
+## Features
+- 🚀 Self-Host your own Chat Rooms
+- 🔐 Put your on Server Code or empty for an open connection server
+- 💙 Complete Private Chatting
+- ❌ No Data Collection
+- 🪨 Unbreakable Core
+- 🎉 Truly Opensource
+## Features to be implemented
+- [ ] 😼 Blocking Users   
+- [ ] 💕 An optional white list of users to only allow connection from specified users
+- [ ] 🎽 Multi-Theming 
+
 ![](images/s0.png)
 ![](images/s1.png)
 ![](images/s2.png)
