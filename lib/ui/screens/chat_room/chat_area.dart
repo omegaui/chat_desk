@@ -251,7 +251,32 @@ class Chat extends StatelessWidget {
         if (message.type == 'image')
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-            child: Image.memory(base64Url.decode(message.message)),
+            child: Container(
+              width: 300,
+              height: 250,
+              decoration: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 16,
+                      offset: const Offset(9, 9)),
+                  BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 16,
+                      offset: const Offset(-9, -9)),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Image.memory(
+                  base64Url.decode(message.message),
+                  filterQuality: FilterQuality.high,
+                  fit: BoxFit.fitHeight,
+                ),
+              ),
+            ),
           ),
         if (message.sender != thisClient.id)
           Text(

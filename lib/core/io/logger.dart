@@ -30,8 +30,8 @@ String createMessage(String receiver, dynamic message, String type) {
   return jsonEncode({"type": type, "message": message, "receiver": receiver});
 }
 
-String sendMessage(String sender, dynamic message) {
-  return jsonEncode({"type": "text", "message": message, "sender": sender});
+String sendMessage(String sender, dynamic message, String type) {
+  return jsonEncode({"type": type, "message": message, "sender": sender});
 }
 
 String createRequest(int requestCode, String id) {
