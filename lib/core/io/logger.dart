@@ -1,0 +1,38 @@
+import 'dart:convert';
+
+const initError = 101;
+const initSuccess = 102;
+const connectionRefused = 103;
+const connectionEstablished = 100;
+const clientJoined = 104;
+const clientExited = 105;
+const unauthorized = 111;
+const userAlreadyExist = 200;
+const fetchMessages = 201;
+const chatSwitched = 301;
+const chatCompanion = 302;
+
+void streamLog(int code, String message) {
+  print(createResponse(code, message));
+}
+
+String createResponse(int code, dynamic response, {dynamic cause}) {
+  return jsonEncode({
+    "type": "server-response",
+    "code": code,
+    "message": response,
+    "cause": cause
+  });
+}
+
+String createMessage(String receiver, dynamic message) {
+  return jsonEncode({"type": "text", "message": message, "receiver": receiver});
+}
+
+String sendMessage(String sender, dynamic message) {
+  return jsonEncode({"type": "text", "message": message, "sender": sender});
+}
+
+String createRequest(int requestCode, String id) {
+  return jsonEncode({"type": "client-request", "id": id, "code": requestCode});
+}
