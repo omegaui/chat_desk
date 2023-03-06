@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 class Message {
+  final String id;
   final String type;
   final String sender;
   final dynamic message;
@@ -8,7 +9,8 @@ class Message {
   final String time;
 
   Message(
-      {required this.type,
+      {required this.id,
+      required this.type,
       required this.time,
       required this.sender,
       required this.message,
@@ -22,6 +24,7 @@ class Message {
   @override
   String toString() {
     return jsonEncode({
+      "id": id,
       "type": type,
       "sender": sender,
       "message": message,
@@ -32,6 +35,7 @@ class Message {
 
   static Message fromJSON(dynamic data) {
     return Message(
+        id: data['id'],
         type: data['type'],
         sender: data["sender"],
         message: data["message"],

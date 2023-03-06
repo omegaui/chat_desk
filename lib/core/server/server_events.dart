@@ -79,12 +79,12 @@ void handleRequests(WebSocketSession session, Client client, String source) {
   if (data['type'] == 'text' || data['type'] == 'image') {
     var time = DateTime.now();
     messages.add(Message(
+        id: "${client.id}:${data['receiver']}>$time",
         type: data['type'],
         sender: client.id,
         message: data["message"],
         receiver: data['receiver'],
         time: "${time.hour}:${time.minute}"));
-    // print(source);
     if (data['receiver'] == "*") {
       sessionMap.forEach((otherID, otherSession) {
         if (otherID != client.id) {

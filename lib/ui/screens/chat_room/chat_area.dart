@@ -1,14 +1,18 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:chat_desk/core/client/client.dart';
 import 'package:chat_desk/core/io/logger.dart';
 import 'package:chat_desk/core/io/message.dart';
 import 'package:chat_desk/io/server_handler.dart';
+import 'package:chat_desk/main.dart';
 import 'package:chat_desk/ui/screens/chat_room/chat_room.dart';
 import 'package:chat_desk/ui/screens/chat_room/user_tabs.dart';
 import 'package:chat_desk/ui/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+
+Map<String, Uint8List> imageCache = {};
 
 class ChatArea extends StatefulWidget {
   const ChatArea({
@@ -38,11 +42,12 @@ class ChatAreaState extends State<ChatArea> {
     onlineTrackerKey.currentState?.rebuild(value);
   }
 
-  void pushToChat(String text) {
+  void pushToChat(String id, String type, String text) {
     setState(() {
       var time = DateTime.now();
       messages.add(Message(
-          type: "text",
+          id: id,
+          type: type,
           sender: widget.client.id,
           message: text,
           receiver: thisClient.id,
@@ -135,6 +140,7 @@ class ChatAreaState extends State<ChatArea> {
                         setState(() {
                           var time = DateTime.now();
                           messages.add(Message(
+                              id: "${thisClient.id}:${widget.client.id}>$time",
                               type: "text",
                               sender: thisClient.id,
                               message: messageController.text,
@@ -251,32 +257,7 @@ class Chat extends StatelessWidget {
         if (message.type == 'image')
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-            child: Container(
-              width: 300,
-              height: 250,
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      blurRadius: 16,
-                      offset: const Offset(9, 9)),
-                  BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      blurRadius: 16,
-                      offset: const Offset(-9, -9)),
-                ],
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: Image.memory(
-                  base64Url.decode(message.message),
-                  filterQuality: FilterQuality.high,
-                  fit: BoxFit.fitHeight,
-                ),
-              ),
-            ),
+            child: ImageHolder(message: message),
           ),
         if (message.sender != thisClient.id)
           Text(
@@ -286,6 +267,137 @@ class Chat extends StatelessWidget {
                 fontSize: 14,
                 color: Colors.grey.withOpacity(0.6)),
           ),
+      ],
+    );
+  }
+}
+
+class ImageHolder extends StatefulWidget {
+  const ImageHolder({super.key, required this.message});
+
+  final Message message;
+
+  @override
+  State<ImageHolder> createState() => _ImageHolderState();
+}
+
+class _ImageHolderState extends State<ImageHolder> {
+  bool hover = false;
+
+  Uint8List _getImage() {
+    if (imageCache.containsKey(widget.message.id)) {
+      return imageCache[widget.message.id]!;
+    }
+    Uint8List data = base64Url.decode(widget.message.message);
+    imageCache.putIfAbsent(widget.message.id, () => data);
+    return data;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (e) => setState(() => hover = true),
+      onExit: (e) => setState(() => hover = false),
+      child: SizedBox(
+        width: 300,
+        height: 250,
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: AnimatedOpacity(
+                opacity: hover ? 0.7 : 1.0,
+                duration: const Duration(milliseconds: 250),
+                child: GestureDetector(
+                  onTap: () {
+                    push(ImagePreview(image: _getImage()));
+                  },
+                  child: Container(
+                    width: 300,
+                    height: 250,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black.withOpacity(0.2),
+                            blurRadius: 16,
+                            offset: const Offset(9, 9)),
+                        BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 16,
+                            offset: const Offset(-9, -9)),
+                      ],
+                    ),
+                    child: AnimatedPadding(
+                      duration: const Duration(milliseconds: 500),
+                      padding: EdgeInsets.all(hover ? 8.0 : 0.0),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.memory(
+                          _getImage(),
+                          filterQuality: FilterQuality.high,
+                          fit: BoxFit.fitHeight,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: AnimatedOpacity(
+                opacity: hover ? 1.0 : 0.0,
+                duration: const Duration(milliseconds: 250),
+                child: AppUtils.buildTooltip(
+                  text: "Save to Disk",
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.save_alt_rounded,
+                      color: Colors.white,
+                    ),
+                    splashRadius: 30,
+                    iconSize: 32,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ImagePreview extends StatelessWidget {
+  const ImagePreview({super.key, required this.image});
+
+  final Uint8List image;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Align(
+          alignment: Alignment.center,
+          child: Image.memory(
+            image,
+            fit: BoxFit.fitWidth,
+          ),
+        ),
+        Align(
+          alignment: Alignment.center,
+          child: Material(
+            color: Colors.transparent,
+            child: IconButton(
+              onPressed: () => pop(),
+              icon: Icon(
+                Icons.close_fullscreen,
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

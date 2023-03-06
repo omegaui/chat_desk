@@ -109,7 +109,7 @@ void joinServer(String host, int port,
     } else if (response['type'] == 'text' || response['type'] == 'image') {
       chatKeys[response['sender']]
           ?.currentState
-          ?.pushToChat(response['message']);
+          ?.pushToChat(response['id'], response['type'], response['message']);
     }
   });
 }

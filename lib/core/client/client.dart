@@ -118,9 +118,9 @@ void main() {
     client.transmit("omegaui", "What are you doing?");
     client.transmit(
         "omegaui",
-        base64UrlEncode(
-            File("/home/omegaui/Pictures/Webcam/2022-10-02-213350.jpg")
-                .readAsBytesSync()),
+        base64UrlEncode(File(
+                "/home/omegaui/Pictures/Screenshots/Screenshot from 2023-03-06 08-06-58.png")
+            .readAsBytesSync()),
         type: "image");
   });
 

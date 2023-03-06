@@ -30,7 +30,6 @@ void main() async {
 
   doWhenWindowReady(() {
     appWindow.minSize = const Size(800, 650);
-    appWindow.maxSize = const Size(800, 650);
     appWindow.size = const Size(800, 650);
     appWindow.alignment = Alignment.center;
     appWindow.show();
@@ -98,19 +97,15 @@ class ContentPaneState extends State<ContentPane> {
 
   void changeTo(Widget? newContent) {
     setState(() {
-      if (content != null) {
-        contents.add(content as Widget);
-      }
+      contents.add(newContent as Widget);
       content = newContent;
     });
   }
 
   void pop() {
-    if (contents.length >= 2) {
-      setState(() {
-        content = contents.elementAt(contents.length - 2);
-      });
-    }
+    setState(() {
+      content = contents.elementAt(contents.length - 2);
+    });
   }
 
   @override
