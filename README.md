@@ -16,8 +16,7 @@ A self-hosted chat application for desktop written in Flutter!
 - [ ] 💕 An optional white list of users to only allow connection from specified users
 - [ ] 🎽 Multi-Theming 
 
-![](images/s0.png)
-![](images/s1.png)
-![](images/s2.png)
-![](images/s3.png)
+<div align="center">
+    <img src="images/preview.png">
+</div>
 

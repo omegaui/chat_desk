@@ -61,47 +61,48 @@ class Client {
 }
 
 void main() {
-  // Client(
-  //         id: "corpus",
-  //         description: "Just Another User",
-  //         code: "code",
-  //         avatar: base64UrlEncode(
-  //             File("/home/omegaui/Downloads/icons8-package-94.png")
-  //                 .readAsBytesSync()))
-  //     .connect("127.0.0.1", 8080, (p0) {});
-  // Client(
-  //         id: "zeno",
-  //         description: "Just Another User",
-  //         code: "code",
-  //         avatar: base64UrlEncode(
-  //             File("/home/omegaui/Downloads/icons8-kawaii-shellfish-96.png")
-  //                 .readAsBytesSync()))
-  //     .connect("127.0.0.1", 8080, (p0) {});
-  // Client(
-  //     id: "_mike",
-  //     description: "Just Another User",
-  //     code: "code",
-  //     avatar: base64UrlEncode(File("/home/omegaui/Downloads/icons8-markdown-100.png").readAsBytesSync())
-  // ).connect("127.0.0.1", 8080, (p0) {
-  //
-  // });Client(
-  //     id: "pluto",
-  //     description: "Just Another User",
-  //     code: "code",
-  //     avatar: base64UrlEncode(File("/home/omegaui/Downloads/icons8-kawaii-shellfish-96.png").readAsBytesSync())
-  // ).connect("127.0.0.1", 8080, (p0) {
-  //
-  // });
-  //
-  // Client(
-  //     id: "john",
-  //     description: "Just Another User",
-  //     code: "code",
-  //     avatar: base64UrlEncode(File("/home/omegaui/Downloads/icons8-kawaii-shellfish-96.png").readAsBytesSync())
-  // ).connect("127.0.0.1", 8080, (p0) {
-  //
-  // });
-  //
+  Client(
+          id: "corpus",
+          description: "Just Another User",
+          code: "code",
+          avatar: base64UrlEncode(
+              File("/home/omegaui/Downloads/icons8-package-94.png")
+                  .readAsBytesSync()))
+      .connect("127.0.0.1", 8080, (p0) {});
+  Client(
+          id: "zeno",
+          description: "Just Another User",
+          code: "code",
+          avatar: base64UrlEncode(
+              File("/home/omegaui/Downloads/icons8-kawaii-shellfish-96.png")
+                  .readAsBytesSync()))
+      .connect("127.0.0.1", 8080, (p0) {});
+  Client(
+          id: "_mike",
+          description: "Just Another User",
+          code: "code",
+          avatar: base64UrlEncode(
+              File("/home/omegaui/Downloads/icons8-markdown-100.png")
+                  .readAsBytesSync()))
+      .connect("127.0.0.1", 8080, (p0) {});
+  Client(
+          id: "pluto",
+          description: "Just Another User",
+          code: "code",
+          avatar: base64UrlEncode(
+              File("/home/omegaui/Downloads/icons8-kawaii-shellfish-96.png")
+                  .readAsBytesSync()))
+      .connect("127.0.0.1", 8080, (p0) {});
+
+  Client(
+          id: "john",
+          description: "Just Another User",
+          code: "code",
+          avatar: base64UrlEncode(
+              File("/home/omegaui/Downloads/icons8-kawaii-shellfish-96.png")
+                  .readAsBytesSync()))
+      .connect("127.0.0.1", 8080, (p0) {});
+
   var client = Client(
       id: "blaze",
       description: "Just Another User",
