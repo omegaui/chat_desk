@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:chat_desk/core/client/client.dart';
@@ -284,12 +285,23 @@ class ImageHolder extends StatefulWidget {
 class _ImageHolderState extends State<ImageHolder> {
   bool hover = false;
 
+  double width = 300;
+  double height = 250;
+
   Uint8List _getImage() {
     if (imageCache.containsKey(widget.message.id)) {
       return imageCache[widget.message.id]!;
     }
     Uint8List data = base64Url.decode(widget.message.message);
     imageCache.putIfAbsent(widget.message.id, () => data);
+    MemoryImage(data).resolve(const ImageConfiguration()).addListener(
+      ImageStreamListener((image, synchronousCall) {
+        setState(() {
+          width = min(96, image.image.width.toDouble());
+          height = min(96, image.image.height.toDouble());
+        });
+      }),
+    );
     return data;
   }
 
@@ -299,8 +311,8 @@ class _ImageHolderState extends State<ImageHolder> {
       onEnter: (e) => setState(() => hover = true),
       onExit: (e) => setState(() => hover = false),
       child: SizedBox(
-        width: 300,
-        height: 250,
+        width: min(300, width),
+        height: min(250, height),
         child: Stack(
           children: [
             Align(
@@ -392,7 +404,7 @@ class ImagePreview extends StatelessWidget {
             color: Colors.transparent,
             child: IconButton(
               onPressed: () => pop(),
-              icon: Icon(
+              icon: const Icon(
                 Icons.close_fullscreen,
               ),
             ),
