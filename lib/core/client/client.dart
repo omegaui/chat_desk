@@ -127,6 +127,12 @@ void main() {
         base64UrlEncode(File("/home/omegaui/Downloads/icons8-linux-96.png")
             .readAsBytesSync()),
         type: "image");
+    client.transmit(
+        "omegaui",
+        base64UrlEncode(
+            File("/home/omegaui/Pictures/Webcam/2022-10-02-213350.jpg")
+                .readAsBytesSync()),
+        type: "image");
   });
 
   // Future.delayed(const Duration(seconds: 4), () async {

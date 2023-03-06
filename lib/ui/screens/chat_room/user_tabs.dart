@@ -7,8 +7,15 @@ import 'package:chat_desk/core/io/logger.dart';
 import 'package:chat_desk/io/server_handler.dart';
 import 'package:chat_desk/ui/screens/chat_room/chat_area.dart';
 import 'package:chat_desk/ui/screens/chat_room/chat_room.dart';
+import 'package:chat_desk/ui/screens/home_screen.dart';
 import 'package:chat_desk/ui/utils.dart';
 import 'package:flutter/material.dart';
+
+GlobalKey<StatusBarState> chatRoomStatusBarKey = GlobalKey();
+
+void notify(String message, Color color) {
+  chatRoomStatusBarKey.currentState?.setStatus(message, color);
+}
 
 Map<String, MemoryImage> avatarCache = {};
 Map<String, GlobalKey<ChatAreaState>> chatKeys = {};
@@ -50,20 +57,28 @@ class UserTabsState extends State<UserTabs> {
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
       ),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            UserTab(
-              userData: jsonDecode(thisClient.toString()),
-              internal: true,
+      child: Stack(
+        children: [
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                UserTab(
+                  userData: jsonDecode(thisClient.toString()),
+                  internal: true,
+                ),
+                ...(users.map((e) {
+                  return UserTab(
+                    userData: e,
+                  );
+                }).toList())
+              ],
             ),
-            ...(users.map((e) {
-              return UserTab(
-                userData: e,
-              );
-            }).toList())
-          ],
-        ),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: StatusBar(key: chatRoomStatusBarKey),
+          ),
+        ],
       ),
     );
   }

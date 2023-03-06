@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 
@@ -6,10 +7,11 @@ import 'package:chat_desk/core/client/client.dart';
 import 'package:chat_desk/core/io/logger.dart';
 import 'package:chat_desk/core/io/message.dart';
 import 'package:chat_desk/io/server_handler.dart';
-import 'package:chat_desk/main.dart';
 import 'package:chat_desk/ui/screens/chat_room/chat_room.dart';
 import 'package:chat_desk/ui/screens/chat_room/user_tabs.dart';
 import 'package:chat_desk/ui/utils.dart';
+import 'package:chat_desk/ui/window_decoration/title_bar.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -130,7 +132,7 @@ class ChatAreaState extends State<ChatArea> {
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
                     color: Colors.grey.shade800.withOpacity(0.1),
-                    width: 400,
+                    width: MediaQuery.of(context).size.width - 400,
                     child: TextField(
                       controller: messageController,
                       cursorColor: Colors.greenAccent,
@@ -179,16 +181,45 @@ class ChatAreaState extends State<ChatArea> {
                 ),
               ),
               const SizedBox(width: 10),
-              Transform.rotate(
-                angle: -0.65,
-                child: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.send_rounded,
-                    color: Colors.grey,
+              AppUtils.buildTooltip(
+                text: "Send Image",
+                child: Transform.rotate(
+                  angle: -0.65,
+                  child: IconButton(
+                    onPressed: () async {
+                      FilePickerResult? result =
+                          await FilePicker.platform.pickFiles(
+                        dialogTitle:
+                            "Pick Images to send to ${widget.client.id}",
+                        type: FileType.image,
+                        allowMultiple: true,
+                      );
+                      if (result != null) {
+                        for (var path in result.paths) {
+                          var data =
+                              base64UrlEncode(File(path!).readAsBytesSync());
+                          thisClient.transmit(widget.client.id, data,
+                              type: "image");
+                          setState(() {
+                            var time = DateTime.now();
+                            messages.add(Message(
+                                id: "${thisClient.id}:${widget.client.id}>$time",
+                                type: "image",
+                                sender: thisClient.id,
+                                message: data,
+                                receiver: widget.client.id,
+                                time: "${time.hour}:${time.minute}"));
+                          });
+                        }
+                      }
+                    },
+                    icon: const Icon(
+                      Icons.send_rounded,
+                      color: Colors.grey,
+                    ),
+                    iconSize: 30,
+                    splashRadius: 25,
                   ),
-                  iconSize: 30,
-                  splashRadius: 25,
                 ),
               ),
             ],
@@ -247,12 +278,15 @@ class Chat extends StatelessWidget {
                 color: Colors.grey.withOpacity(0.6)),
           ),
         if (message.type == 'text')
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-            child: Text(
-              message.message,
-              style: const TextStyle(
-                  fontFamily: "Sen", fontSize: 16, color: Colors.white),
+          Flexible(
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+              child: Text(
+                message.message,
+                style: const TextStyle(
+                    fontFamily: "Sen", fontSize: 16, color: Colors.white),
+              ),
             ),
           ),
         if (message.type == 'image')
@@ -323,7 +357,12 @@ class _ImageHolderState extends State<ImageHolder> {
                 duration: const Duration(milliseconds: 250),
                 child: GestureDetector(
                   onTap: () {
-                    push(ImagePreview(image: _getImage()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ImagePreview(
+                                message: widget.message,
+                                imageBytes: _getImage())));
                   },
                   child: Container(
                     width: 300,
@@ -365,7 +404,16 @@ class _ImageHolderState extends State<ImageHolder> {
                 child: AppUtils.buildTooltip(
                   text: "Save to Disk",
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      String? result = await FilePicker.platform.saveFile(
+                          type: FileType.image,
+                          dialogTitle: "Select a directory",
+                          fileName: "img_${widget.message.time}.png");
+                      if (result != null) {
+                        File(result).writeAsBytesSync(_getImage(), flush: true);
+                        notify("Image Saved", Colors.greenAccent);
+                      }
+                    },
                     icon: const Icon(
                       Icons.save_alt_rounded,
                       color: Colors.white,
@@ -384,34 +432,45 @@ class _ImageHolderState extends State<ImageHolder> {
 }
 
 class ImagePreview extends StatelessWidget {
-  const ImagePreview({super.key, required this.image});
+  const ImagePreview(
+      {super.key, required this.imageBytes, required this.message});
 
-  final Uint8List image;
+  final Message message;
+  final Uint8List imageBytes;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Align(
-          alignment: Alignment.center,
-          child: Image.memory(
-            image,
-            fit: BoxFit.fitWidth,
-          ),
-        ),
-        Align(
-          alignment: Alignment.center,
-          child: Material(
-            color: Colors.transparent,
-            child: IconButton(
-              onPressed: () => pop(),
-              icon: const Icon(
-                Icons.close_fullscreen,
-              ),
+    return Scaffold(
+      backgroundColor: Colors.grey.shade900,
+      body: Column(
+        children: [
+          const TitleBar(),
+          Expanded(
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: InteractiveViewer(
+                    child: Image.memory(imageBytes),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: IconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: const Icon(
+                      Icons.close_fullscreen,
+                      color: Colors.white,
+                    ),
+                    splashRadius: 30,
+                    iconSize: 32,
+                  ),
+                )
+              ],
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
