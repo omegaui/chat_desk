@@ -297,8 +297,8 @@ class _ImageHolderState extends State<ImageHolder> {
     MemoryImage(data).resolve(const ImageConfiguration()).addListener(
       ImageStreamListener((image, synchronousCall) {
         setState(() {
-          width = min(96, image.image.width.toDouble());
-          height = min(96, image.image.height.toDouble());
+          width = max(96, image.image.width.toDouble());
+          height = max(96, image.image.height.toDouble());
         });
       }),
     );
@@ -310,7 +310,8 @@ class _ImageHolderState extends State<ImageHolder> {
     return MouseRegion(
       onEnter: (e) => setState(() => hover = true),
       onExit: (e) => setState(() => hover = false),
-      child: SizedBox(
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
         width: min(300, width),
         height: min(250, height),
         child: Stack(
