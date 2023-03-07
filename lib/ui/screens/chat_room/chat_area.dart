@@ -14,6 +14,8 @@ import 'package:chat_desk/ui/window_decoration/title_bar.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:string_validator/string_validator.dart' as text_validator;
+import 'package:url_launcher/url_launcher_string.dart';
 
 Map<String, Uint8List> imageCache = {};
 
@@ -146,7 +148,7 @@ class ChatAreaState extends State<ChatArea> {
                               id: "${thisClient.id}:${widget.client.id}>$time",
                               type: "text",
                               sender: thisClient.id,
-                              message: messageController.text,
+                              message: messageController.text.trim(),
                               receiver: widget.client.id,
                               time: "${time.hour}:${time.minute}"));
                           messageController.text = "";
@@ -258,12 +260,15 @@ class ChatAreaState extends State<ChatArea> {
 }
 
 class Chat extends StatelessWidget {
-  const Chat({super.key, required this.message});
+  Chat({super.key, required this.message});
 
   final Message message;
+  bool hover = false;
 
   @override
   Widget build(BuildContext context) {
+    bool isURL =
+        message.type == 'text' && text_validator.isURL(message.message);
     return Row(
       mainAxisAlignment: message.sender == thisClient.id
           ? MainAxisAlignment.end
@@ -277,7 +282,7 @@ class Chat extends StatelessWidget {
                 fontSize: 14,
                 color: Colors.grey.withOpacity(0.6)),
           ),
-        if (message.type == 'text')
+        if (message.type == 'text' && !isURL)
           Flexible(
             child: Padding(
               padding:
@@ -289,6 +294,46 @@ class Chat extends StatelessWidget {
               ),
             ),
           ),
+        if (message.type == 'text' && isURL)
+          StatefulBuilder(builder: (context, setState) {
+            return Flexible(
+              child: MouseRegion(
+                cursor: SystemMouseCursors.click,
+                onEnter: (e) => setState(() => hover = true),
+                onExit: (e) => setState(() => hover = false),
+                child: GestureDetector(
+                  onTap: () async {
+                    if (await canLaunchUrlString(message.message)) {
+                      launchUrlString(message.message);
+                    }
+                  },
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 250),
+                    decoration: BoxDecoration(
+                      color: hover
+                          ? Colors.grey.withOpacity(0.1)
+                          : Colors.transparent,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8.0, vertical: 4.0),
+                      child: AppUtils.buildTooltip(
+                        text: "Click to Open URl",
+                        child: Text(
+                          message.message,
+                          style: TextStyle(
+                              fontFamily: "Sen",
+                              fontSize: 15,
+                              color: Colors.greenAccent),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          }),
         if (message.type == 'image')
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
