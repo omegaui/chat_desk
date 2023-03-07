@@ -182,47 +182,13 @@ class ChatAreaState extends State<ChatArea> {
                   ),
                 ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 5),
               AppUtils.buildTooltip(
                 text: "Send Image",
-                child: Transform.rotate(
-                  angle: -0.65,
-                  child: IconButton(
-                    onPressed: () async {
-                      FilePickerResult? result =
-                          await FilePicker.platform.pickFiles(
-                        dialogTitle:
-                            "Pick Images to send to ${widget.client.id}",
-                        type: FileType.image,
-                        allowMultiple: true,
-                      );
-                      if (result != null) {
-                        for (var path in result.paths) {
-                          var data =
-                              base64UrlEncode(File(path!).readAsBytesSync());
-                          thisClient.transmit(widget.client.id, data,
-                              type: "image");
-                          setState(() {
-                            var time = DateTime.now();
-                            messages.add(Message(
-                                id: "${thisClient.id}:${widget.client.id}>$time",
-                                type: "image",
-                                sender: thisClient.id,
-                                message: data,
-                                receiver: widget.client.id,
-                                time: "${time.hour}:${time.minute}"));
-                          });
-                        }
-                      }
-                    },
-                    icon: const Icon(
-                      Icons.send_rounded,
-                      color: Colors.grey,
-                    ),
-                    iconSize: 30,
-                    splashRadius: 25,
-                  ),
-                ),
+                child: SendButton(
+                    client: widget.client,
+                    messages: messages,
+                    setState: setState),
               ),
             ],
           ),
@@ -255,6 +221,65 @@ class ChatAreaState extends State<ChatArea> {
             topRight: Radius.circular(20), bottomRight: Radius.circular(20)),
       ),
       child: _buildSession(),
+    );
+  }
+}
+
+class SendButton extends StatefulWidget {
+  const SendButton(
+      {super.key, this.setState, required this.messages, required this.client});
+
+  final dynamic setState;
+  final List<Message> messages;
+  final Client client;
+
+  @override
+  State<SendButton> createState() => _SendButtonState();
+}
+
+class _SendButtonState extends State<SendButton> {
+  bool hover = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (e) => setState(() => hover = true),
+      onExit: (e) => setState(() => hover = false),
+      child: GestureDetector(
+        onTap: () async {
+          FilePickerResult? result = await FilePicker.platform.pickFiles(
+            dialogTitle: "Pick Images to send to ${widget.client.id}",
+            type: FileType.image,
+            allowMultiple: true,
+          );
+          if (result != null) {
+            for (var path in result.paths) {
+              var data = base64UrlEncode(File(path!).readAsBytesSync());
+              thisClient.transmit(widget.client.id, data, type: "image");
+              widget.setState(() {
+                var time = DateTime.now();
+                widget.messages.add(Message(
+                    id: "${thisClient.id}:${widget.client.id}>$time",
+                    type: "image",
+                    sender: thisClient.id,
+                    message: data,
+                    receiver: widget.client.id,
+                    time: "${time.hour}:${time.minute}"));
+              });
+            }
+          }
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 250),
+          decoration: BoxDecoration(
+              color: hover ? Colors.grey.withOpacity(0.1) : Colors.transparent,
+              borderRadius: BorderRadius.circular(40)),
+          child: Lottie.asset(
+            'assets/lottie-animations/send.json',
+            width: 60,
+          ),
+        ),
+      ),
     );
   }
 }

@@ -29,8 +29,8 @@ void main() async {
   runApp(const App());
 
   doWhenWindowReady(() {
-    appWindow.minSize = const Size(800, 650);
-    appWindow.size = const Size(800, 650);
+    appWindow.minSize = const Size(1200, 850);
+    appWindow.size = const Size(1200, 850);
     appWindow.alignment = Alignment.center;
     appWindow.show();
   });
@@ -42,31 +42,27 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppUtils.context = context;
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold(
-          backgroundColor: Colors.grey.shade900,
-          body: Stack(
-            children: [
-              Align(
-                alignment: Alignment.center,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const TitleBar(),
-                    Expanded(
-                      child: ContentPane(
-                        key: contentPaneKey,
-                        content: const HomeScreen(),
-                      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: Colors.grey.shade900,
+        body: Stack(
+          children: [
+            Align(
+              alignment: Alignment.center,
+              child: Column(
+                children: [
+                  const TitleBar(),
+                  Expanded(
+                    child: ContentPane(
+                      key: contentPaneKey,
+                      content: const HomeScreen(),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

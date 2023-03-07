@@ -8,6 +8,7 @@ import 'package:chat_desk/main.dart';
 import 'package:chat_desk/ui/utils.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:string_validator/string_validator.dart' as text_validator;
 
@@ -39,18 +40,17 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
       children: [
-        const Expanded(child: UserSettings()),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 18.0),
-          child: VerticalDivider(
-            thickness: 2,
-            color: Colors.grey.shade700,
-          ),
+        Lottie.asset('assets/lottie-animations/server-animation.json',
+            width: 500),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Expanded(child: UserSettings()),
+            Expanded(child: ConnectionConsole()),
+          ],
         ),
-        const Expanded(child: ConnectionConsole()),
       ],
     );
   }
@@ -61,7 +61,7 @@ class UserSettings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -70,6 +70,7 @@ class UserSettings extends StatelessWidget {
           child: const Avatar(),
         ),
         Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             StatefulBuilder(
               builder: (context, setState) {
