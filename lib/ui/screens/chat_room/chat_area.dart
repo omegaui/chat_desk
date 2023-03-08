@@ -97,24 +97,25 @@ class ChatAreaState extends State<ChatArea> {
                 client: widget.client,
               ),
               Expanded(
-                  child: Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: AppUtils.buildTooltip(
-                    text: "Close Chat!",
-                    child: IconButton(
-                      onPressed: () => chatWith(null),
-                      icon: const Icon(
-                        Icons.close,
-                        color: Colors.grey,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: AppUtils.buildTooltip(
+                      text: "Close Chat!",
+                      child: IconButton(
+                        onPressed: () => chatWith(null),
+                        icon: const Icon(
+                          Icons.close,
+                          color: Colors.grey,
+                        ),
+                        iconSize: 20,
+                        splashRadius: 20,
                       ),
-                      iconSize: 20,
-                      splashRadius: 20,
                     ),
                   ),
                 ),
-              ))
+              )
             ],
           ),
         ),
@@ -134,7 +135,7 @@ class ChatAreaState extends State<ChatArea> {
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
                     color: Colors.grey.shade800.withOpacity(0.1),
-                    width: MediaQuery.of(context).size.width - 400,
+                    width: MediaQuery.of(context).size.width - 460,
                     child: TextField(
                       controller: messageController,
                       cursorColor: Colors.greenAccent,
@@ -184,11 +185,53 @@ class ChatAreaState extends State<ChatArea> {
               ),
               const SizedBox(width: 5),
               AppUtils.buildTooltip(
-                text: "Send Image",
+                text: "Send Images",
                 child: SendButton(
-                    client: widget.client,
-                    messages: messages,
-                    setState: setState),
+                  onPressed: () async {
+                    FilePickerResult? result =
+                        await FilePicker.platform.pickFiles(
+                      dialogTitle: "Pick Images to send to ${widget.client.id}",
+                      type: FileType.image,
+                      allowMultiple: true,
+                    );
+                    if (result != null) {
+                      for (var path in result.paths) {
+                        var data =
+                            base64UrlEncode(File(path!).readAsBytesSync());
+                        thisClient.transmit(widget.client.id, data,
+                            type: "image");
+                        setState(() {
+                          var time = DateTime.now();
+                          messages.add(Message(
+                              id: "${thisClient.id}:${widget.client.id}>$time",
+                              type: "image",
+                              sender: thisClient.id,
+                              message: data,
+                              receiver: widget.client.id,
+                              time: "${time.hour}:${time.minute}"));
+                        });
+                      }
+                    }
+                  },
+                  lottieAnimationPath: "assets/lottie-animations/image.json",
+                ),
+              ),
+              const SizedBox(width: 5),
+              AppUtils.buildTooltip(
+                text: "Send Files",
+                child: SendButton(
+                  onPressed: () async {
+                    FilePickerResult? result =
+                        await FilePicker.platform.pickFiles(
+                      dialogTitle: "Pick Files to send to ${widget.client.id}",
+                      allowMultiple: true,
+                    );
+                    if (result != null) {
+                      for (var path in result.paths) {}
+                    }
+                  },
+                  lottieAnimationPath: "assets/lottie-animations/file.json",
+                ),
               ),
             ],
           ),
@@ -227,11 +270,10 @@ class ChatAreaState extends State<ChatArea> {
 
 class SendButton extends StatefulWidget {
   const SendButton(
-      {super.key, this.setState, required this.messages, required this.client});
+      {super.key, required this.onPressed, required this.lottieAnimationPath});
 
-  final dynamic setState;
-  final List<Message> messages;
-  final Client client;
+  final VoidCallback onPressed;
+  final String lottieAnimationPath;
 
   @override
   State<SendButton> createState() => _SendButtonState();
@@ -246,37 +288,16 @@ class _SendButtonState extends State<SendButton> {
       onEnter: (e) => setState(() => hover = true),
       onExit: (e) => setState(() => hover = false),
       child: GestureDetector(
-        onTap: () async {
-          FilePickerResult? result = await FilePicker.platform.pickFiles(
-            dialogTitle: "Pick Images to send to ${widget.client.id}",
-            type: FileType.image,
-            allowMultiple: true,
-          );
-          if (result != null) {
-            for (var path in result.paths) {
-              var data = base64UrlEncode(File(path!).readAsBytesSync());
-              thisClient.transmit(widget.client.id, data, type: "image");
-              widget.setState(() {
-                var time = DateTime.now();
-                widget.messages.add(Message(
-                    id: "${thisClient.id}:${widget.client.id}>$time",
-                    type: "image",
-                    sender: thisClient.id,
-                    message: data,
-                    receiver: widget.client.id,
-                    time: "${time.hour}:${time.minute}"));
-              });
-            }
-          }
-        },
+        onTap: widget.onPressed,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 250),
           decoration: BoxDecoration(
-              color: hover ? Colors.grey.withOpacity(0.1) : Colors.transparent,
-              borderRadius: BorderRadius.circular(40)),
+            color: hover ? Colors.grey.withOpacity(0.2) : Colors.grey.shade800,
+            borderRadius: BorderRadius.circular(hover ? 10 : 40),
+          ),
+          padding: EdgeInsets.all(hover ? 2 : 12),
           child: Lottie.asset(
-            'assets/lottie-animations/send.json',
-            width: 60,
+            widget.lottieAnimationPath,
           ),
         ),
       ),
