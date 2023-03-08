@@ -24,6 +24,8 @@ void pop() {
 }
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await AppManager.initAppData();
 
   runApp(const App());
