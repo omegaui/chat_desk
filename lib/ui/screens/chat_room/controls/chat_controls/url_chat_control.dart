@@ -3,7 +3,7 @@ import 'package:chat_desk/ui/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-class UrlChatControl extends StatefulWidget{
+class UrlChatControl extends StatefulWidget {
   const UrlChatControl({super.key, required this.message});
 
   final Message message;
@@ -31,14 +31,12 @@ class _UrlChatControlState extends State<UrlChatControl> {
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 250),
             decoration: BoxDecoration(
-              color: hover
-                  ? Colors.grey.withOpacity(0.1)
-                  : Colors.transparent,
+              color: hover ? Colors.grey.withOpacity(0.1) : Colors.transparent,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 8.0, vertical: 4.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               child: AppUtils.buildTooltip(
                 text: "Click to Open URl",
                 child: Text(

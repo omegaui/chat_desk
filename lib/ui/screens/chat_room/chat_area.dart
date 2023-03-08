@@ -222,9 +222,7 @@ class ChatAreaState extends State<ChatArea> {
                       allowMultiple: true,
                     );
                     if (result != null) {
-                      for (var path in result.paths) {
-
-                      }
+                      for (var path in result.paths) {}
                     }
                   },
                   lottieAnimationPath: "assets/lottie-animations/file.json",

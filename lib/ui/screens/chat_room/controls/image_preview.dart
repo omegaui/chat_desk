@@ -1,4 +1,3 @@
-
 import 'dart:typed_data';
 
 import 'package:chat_desk/core/io/message.dart';

@@ -1,4 +1,3 @@
-
 import 'package:chat_desk/core/io/message.dart';
 import 'package:chat_desk/io/server_handler.dart';
 import 'package:chat_desk/ui/screens/chat_room/controls/chat_controls/url_chat_control.dart';
@@ -33,7 +32,7 @@ class Chat extends StatelessWidget {
           Flexible(
             child: Padding(
               padding:
-              const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               child: Text(
                 message.message,
                 style: const TextStyle(
@@ -41,8 +40,7 @@ class Chat extends StatelessWidget {
               ),
             ),
           ),
-        if (message.type == 'text' && isURL)
-          UrlChatControl(message: message),
+        if (message.type == 'text' && isURL) UrlChatControl(message: message),
         if (message.type == 'image')
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
