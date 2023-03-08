@@ -23,8 +23,8 @@ class Client {
     channel.stream.listen(listener);
   }
 
-  void transmit(String receiver, dynamic message, {type = "text"}) {
-    channel.sink.add(createMessage(receiver, message, type));
+  void transmit(String receiver, dynamic message, String id, {type = "text"}) {
+    channel.sink.add(createMessage(receiver, message, type, id));
   }
 
   void request(dynamic data) {
@@ -115,25 +115,31 @@ void main() {
     });
 
   Future.delayed(const Duration(seconds: 4), () async {
-    client.transmit("omegaui", "hello");
-    client.transmit("omegaui", "What are you doing?");
-    client.transmit(
-        "omegaui",
-        base64UrlEncode(File(
-                "/home/omegaui/Pictures/Screenshots/Screenshot from 2023-03-06 08-06-58.png")
-            .readAsBytesSync()),
-        type: "image");
-    client.transmit(
-        "omegaui",
-        base64UrlEncode(File("/home/omegaui/Downloads/icons8-linux-96.png")
-            .readAsBytesSync()),
-        type: "image");
-    client.transmit(
-        "omegaui",
-        base64UrlEncode(
-            File("/home/omegaui/Pictures/Webcam/2022-10-02-213350.jpg")
-                .readAsBytesSync()),
-        type: "image");
+    // client.transmit("omegaui", "hello");
+    // client.transmit("omegaui", "What are you doing?");
+    // client.transmit(
+    //     "omegaui",
+    //     base64UrlEncode(File(
+    //             "/home/omegaui/Pictures/Screenshots/Screenshot from 2023-03-06 08-06-58.png")
+    //         .readAsBytesSync()),
+    //
+    //     type: "image");
+    // client.transmit(
+    //     "omegaui",
+    //     base64UrlEncode(File("/home/omegaui/Downloads/icons8-linux-96.png")
+    //         .readAsBytesSync()),
+    //     type: "image");
+    // client.transmit(
+    //     "omegaui",
+    //     {
+    //       "path": "client.dart",
+    //       "name": "client.dart",
+    //       "size": 98765,
+    //       "data": File(
+    //               "/home/omegaui/IdeaProjects/chat_desk/lib/core/client/client.dart")
+    //           .readAsStringSync()
+    //     },
+    //     type: "text-file");
   });
 
   // Future.delayed(const Duration(seconds: 4), () async {

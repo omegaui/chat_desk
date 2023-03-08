@@ -3,16 +3,16 @@ import 'package:chat_desk/ui/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-class UrlChatControl extends StatefulWidget {
-  const UrlChatControl({super.key, required this.message});
+class UrlChatComponent extends StatefulWidget {
+  const UrlChatComponent({super.key, required this.message});
 
   final Message message;
 
   @override
-  State<UrlChatControl> createState() => _UrlChatControlState();
+  State<UrlChatComponent> createState() => _UrlChatComponentState();
 }
 
-class _UrlChatControlState extends State<UrlChatControl> {
+class _UrlChatComponentState extends State<UrlChatComponent> {
   bool hover = false;
 
   @override

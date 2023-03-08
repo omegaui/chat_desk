@@ -106,7 +106,9 @@ void joinServer(String host, int port,
           setStatus(response['message'], Colors.indigo);
         });
       }
-    } else if (response['type'] == 'text' || response['type'] == 'image') {
+    } else if (response['type'] == 'text' ||
+        response['type'] == 'image' ||
+        response['type'] == 'text-file') {
       chatKeys[response['sender']]
           ?.currentState
           ?.pushToChat(response['id'], response['type'], response['message']);

@@ -7,6 +7,7 @@ import 'package:chat_desk/core/io/message.dart';
 import 'package:chat_desk/io/server_handler.dart';
 import 'package:chat_desk/ui/screens/chat_room/chat_room.dart';
 import 'package:chat_desk/ui/screens/chat_room/controls/chat.dart';
+import 'package:chat_desk/ui/screens/chat_room/controls/chat_components/lottie_button.dart';
 import 'package:chat_desk/ui/screens/chat_room/user_tabs.dart';
 import 'package:chat_desk/ui/utils.dart';
 import 'package:file_picker/file_picker.dart';
@@ -41,14 +42,14 @@ class ChatAreaState extends State<ChatArea> {
     onlineTrackerKey.currentState?.rebuild(value);
   }
 
-  void pushToChat(String id, String type, String text) {
+  void pushToChat(String id, String type, dynamic message) {
     setState(() {
       var time = DateTime.now();
       messages.add(Message(
           id: id,
           type: type,
           sender: widget.client.id,
-          message: text,
+          message: message,
           receiver: thisClient.id,
           time: "${time.hour}:${time.minute}"));
     });
@@ -136,10 +137,12 @@ class ChatAreaState extends State<ChatArea> {
                       cursorColor: Colors.greenAccent,
                       textInputAction: TextInputAction.none,
                       onSubmitted: (value) {
-                        thisClient.transmit(
-                            widget.client.id, messageController.text);
                         setState(() {
                           var time = DateTime.now();
+                          thisClient.transmit(
+                              widget.client.id,
+                              messageController.text,
+                              "${thisClient.id}:${widget.client.id}>$time");
                           messages.add(Message(
                               id: "${thisClient.id}:${widget.client.id}>$time",
                               type: "text",
@@ -181,7 +184,7 @@ class ChatAreaState extends State<ChatArea> {
               const SizedBox(width: 5),
               AppUtils.buildTooltip(
                 text: "Send Images",
-                child: SendButton(
+                child: LottieButton(
                   onPressed: () async {
                     FilePickerResult? result =
                         await FilePicker.platform.pickFiles(
@@ -191,20 +194,20 @@ class ChatAreaState extends State<ChatArea> {
                     );
                     if (result != null) {
                       for (var path in result.paths) {
+                        var time = DateTime.now();
                         var data =
                             base64UrlEncode(File(path!).readAsBytesSync());
                         thisClient.transmit(widget.client.id, data,
+                            "${thisClient.id}:${widget.client.id}>$time",
                             type: "image");
-                        setState(() {
-                          var time = DateTime.now();
-                          messages.add(Message(
-                              id: "${thisClient.id}:${widget.client.id}>$time",
-                              type: "image",
-                              sender: thisClient.id,
-                              message: data,
-                              receiver: widget.client.id,
-                              time: "${time.hour}:${time.minute}"));
-                        });
+                        messages.add(Message(
+                            id: "${thisClient.id}:${widget.client.id}>$time",
+                            type: "image",
+                            sender: thisClient.id,
+                            message: data,
+                            receiver: widget.client.id,
+                            time: "${time.hour}:${time.minute}"));
+                        setState(() {});
                       }
                     }
                   },
@@ -214,7 +217,7 @@ class ChatAreaState extends State<ChatArea> {
               const SizedBox(width: 5),
               AppUtils.buildTooltip(
                 text: "Send Files",
-                child: SendButton(
+                child: LottieButton(
                   onPressed: () async {
                     FilePickerResult? result =
                         await FilePicker.platform.pickFiles(
@@ -222,7 +225,23 @@ class ChatAreaState extends State<ChatArea> {
                       allowMultiple: true,
                     );
                     if (result != null) {
-                      for (var path in result.paths) {}
+                      for (var path in result.paths) {
+                        if (!AppUtils.isBinary(path!)) {
+                          var time = DateTime.now();
+                          var data = AppUtils.generateFileMetadata(path);
+                          thisClient.transmit(widget.client.id, data,
+                              "${thisClient.id}:${widget.client.id}>$time",
+                              type: "text-file");
+                          messages.add(Message(
+                              id: "${thisClient.id}:${widget.client.id}>$time",
+                              type: "text-file",
+                              sender: thisClient.id,
+                              message: data,
+                              receiver: widget.client.id,
+                              time: "${time.hour}:${time.minute}"));
+                          setState(() {});
+                        }
+                      }
                     }
                   },
                   lottieAnimationPath: "assets/lottie-animations/file.json",
@@ -259,43 +278,6 @@ class ChatAreaState extends State<ChatArea> {
             topRight: Radius.circular(20), bottomRight: Radius.circular(20)),
       ),
       child: _buildSession(),
-    );
-  }
-}
-
-class SendButton extends StatefulWidget {
-  const SendButton(
-      {super.key, required this.onPressed, required this.lottieAnimationPath});
-
-  final VoidCallback onPressed;
-  final String lottieAnimationPath;
-
-  @override
-  State<SendButton> createState() => _SendButtonState();
-}
-
-class _SendButtonState extends State<SendButton> {
-  bool hover = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return MouseRegion(
-      onEnter: (e) => setState(() => hover = true),
-      onExit: (e) => setState(() => hover = false),
-      child: GestureDetector(
-        onTap: widget.onPressed,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 250),
-          decoration: BoxDecoration(
-            color: hover ? Colors.grey.withOpacity(0.2) : Colors.grey.shade800,
-            borderRadius: BorderRadius.circular(hover ? 10 : 40),
-          ),
-          padding: EdgeInsets.all(hover ? 2 : 12),
-          child: Lottie.asset(
-            widget.lottieAnimationPath,
-          ),
-        ),
-      ),
     );
   }
 }

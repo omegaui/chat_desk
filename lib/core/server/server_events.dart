@@ -76,7 +76,9 @@ void notifyExitOf(WebSocketSession session, Client client) {
 
 void handleRequests(WebSocketSession session, Client client, String source) {
   dynamic data = jsonDecode(source);
-  if (data['type'] == 'text' || data['type'] == 'image') {
+  if (data['type'] == 'text' ||
+      data['type'] == 'image' ||
+      data['type'] == 'text-file') {
     var time = DateTime.now();
     messages.add(Message(
         id: "${client.id}:${data['receiver']}>$time",
@@ -88,13 +90,13 @@ void handleRequests(WebSocketSession session, Client client, String source) {
     if (data['receiver'] == "*") {
       sessionMap.forEach((otherID, otherSession) {
         if (otherID != client.id) {
-          otherSession
-              .send(sendMessage(client.id, data["message"], data['type']));
+          otherSession.send(sendMessage(client.id, data["message"],
+              data['type'], "${client.id}:${data['receiver']}>$time"));
         }
       });
     } else {
-      sessionMap[data['receiver']]
-          ?.send(sendMessage(client.id, data["message"], data['type']));
+      sessionMap[data['receiver']]?.send(sendMessage(client.id, data["message"],
+          data['type'], "${client.id}:${data['receiver']}>$time"));
     }
   } else if (data['type'] == 'request') {
     if (data['code'] == fetchMessages) {

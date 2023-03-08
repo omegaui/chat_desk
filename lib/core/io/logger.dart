@@ -26,12 +26,14 @@ String createResponse(int code, dynamic response, {dynamic cause}) {
   });
 }
 
-String createMessage(String receiver, dynamic message, String type) {
-  return jsonEncode({"type": type, "message": message, "receiver": receiver});
+String createMessage(String receiver, dynamic message, String type, String id) {
+  return jsonEncode(
+      {"type": type, "message": message, "receiver": receiver, "id": id});
 }
 
-String sendMessage(String sender, dynamic message, String type) {
-  return jsonEncode({"type": type, "message": message, "sender": sender});
+String sendMessage(String sender, dynamic message, String type, String id) {
+  return jsonEncode(
+      {"type": type, "message": message, "sender": sender, "id": id});
 }
 
 String createRequest(int requestCode, String id) {

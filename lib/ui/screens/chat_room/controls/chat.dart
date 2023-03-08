@@ -1,12 +1,16 @@
 import 'package:chat_desk/core/io/message.dart';
 import 'package:chat_desk/io/server_handler.dart';
-import 'package:chat_desk/ui/screens/chat_room/controls/chat_controls/url_chat_control.dart';
+import 'package:chat_desk/ui/screens/chat_room/controls/chat_components/text_file_chat_components.dart';
+import 'package:chat_desk/ui/screens/chat_room/controls/chat_components/url_chat_components.dart';
 import 'package:chat_desk/ui/screens/chat_room/controls/image_holder.dart';
 import 'package:flutter/material.dart';
 import 'package:string_validator/string_validator.dart' as text_validator;
 
 class Chat extends StatelessWidget {
-  const Chat({super.key, required this.message});
+  const Chat({
+    super.key,
+    required this.message,
+  });
 
   final Message message;
 
@@ -30,21 +34,31 @@ class Chat extends StatelessWidget {
         if (message.type == 'text' && !isURL)
           Flexible(
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 4.0,
+              ),
               child: Text(
                 message.message,
                 style: const TextStyle(
-                    fontFamily: "Sen", fontSize: 16, color: Colors.white),
+                  fontFamily: "Sen",
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
-        if (message.type == 'text' && isURL) UrlChatControl(message: message),
+        if (message.type == 'text' && isURL) UrlChatComponent(message: message),
         if (message.type == 'image')
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+              vertical: 4.0,
+            ),
             child: ImageHolder(message: message),
           ),
+        if (message.type == 'text-file')
+          TextFileChatComponent(message: message),
         if (message.sender != thisClient.id)
           Text(
             message.time,
