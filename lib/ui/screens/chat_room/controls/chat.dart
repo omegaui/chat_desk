@@ -6,10 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:string_validator/string_validator.dart' as text_validator;
 
 class Chat extends StatelessWidget {
-  Chat({super.key, required this.message});
+  const Chat({super.key, required this.message});
 
   final Message message;
-  bool hover = false;
 
   @override
   Widget build(BuildContext context) {

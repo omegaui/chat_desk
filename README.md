@@ -26,6 +26,7 @@ You need to launch it with flutter (until we reach stable).
 - **Clone the repo**
 ```shell
 git clone https://github.com/omegaui/chat_desk
+cd chat_desk
 ```
 
 - Getting Dependencies
