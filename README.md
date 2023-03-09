@@ -16,7 +16,7 @@ A self-hosted chat application for desktop written in Flutter!
 - [ ] 💕 An optional white list of users to only allow connection from specified users
 - [ ] 🎽 Multi-Theming 
 
-## ![](https://img.icons8.com/external-itim2101-flat-itim2101/32/null/external-test-online-education-itim2101-flat-itim2101.png) Testing
+## ![](https://img.icons8.com/external-itim2101-flat-itim2101/32/null/external-test-online-education-itim2101-flat-itim2101.png) Testing (requires dart installed)
 ### ![](https://img.icons8.com/color/32/null/linux--v1.png) Linux, ![](https://img.icons8.com/fluency/32/null/windows-10.png) Windows and ![](https://img.icons8.com/color/32/null/mac-logo.png) MacOS
 Head over to **Releases**
 
