@@ -27,16 +27,16 @@ jobs:
 
       - name: List Structure
         run: ls
-#
-#      - name: Creating build Directory
-#        run: mkdir beta-build
-#
-#      - name: step 2 - Add artifacts to publish to the temp folder
-#        run: |
-#          cp
-#
-#      - name: Step 3 - Use the Upload Artifact GitHub Action
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: assets-for-download
-#          path: beta-build
+
+      - name: Creating build Directory
+        run: mkdir beta-build
+
+      - name: Saving Artifact
+        run: |
+          cp -r build/linux/x64/release/* beta-build
+
+      - name: Preparing Artifact for release
+        uses: actions/upload-artifact@v2
+        with:
+          name: assets-for-download
+          path: beta-build
