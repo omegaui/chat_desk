@@ -35,11 +35,8 @@ flutter pub get
 ```
 
 - Launching
-
-Since we use `any_link_preview` package, which is built with unsound null safety,
-we need to pass `--no-sound-null-safety` flag in the run command!
 ```shell
-flutter run --no-sound-null-safety
+flutter run 
 ```
 
 <div align="center">
