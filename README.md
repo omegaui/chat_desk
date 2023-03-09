@@ -17,9 +17,17 @@ A self-hosted chat application for desktop written in Flutter!
 - [ ] 🎽 Multi-Theming 
 
 ## ![](https://img.icons8.com/external-itim2101-flat-itim2101/32/null/external-test-online-education-itim2101-flat-itim2101.png) Testing
+### ![](https://img.icons8.com/color/32/null/linux--v1.png) For Linux
+Head over to [**Actions**](https://github.com/omegaui/chat_desk/actions) & download the latest workflow's `beta-build`.
+<div align="center">
+    <img src="images/artifact-preview.png">
+    <h5>Preview</h5>
+</div>
 
-For testing the project,
-You need to launch it with flutter (until we reach stable).
+### ![](https://img.icons8.com/fluency/32/null/windows-10.png) Windows and ![](https://img.icons8.com/color/32/null/mac-logo.png) MacOS
+
+For testing this project for windows and mac-os,
+You need to launch it with flutter (until we design a workflow).
 
 **It's easy**
 
