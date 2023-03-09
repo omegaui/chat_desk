@@ -32,7 +32,7 @@ jobs:
 
       - name: Saving Artifact
         run: |
-          cp build/windows/runner/release/* beta-build-windows
+          cp build/windows/runner/Release/* beta-build-windows
 
       - name: Preparing Artifact for release
         uses: actions/upload-artifact@v2
