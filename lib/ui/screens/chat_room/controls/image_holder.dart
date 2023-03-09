@@ -53,48 +53,46 @@ class _ImageHolderState extends State<ImageHolder> {
         duration: const Duration(milliseconds: 250),
         width: min(300, width),
         height: min(250, height),
+        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         child: Stack(
           children: [
             Align(
               alignment: Alignment.center,
-              child: AnimatedOpacity(
-                opacity: hover ? 0.7 : 1.0,
-                duration: const Duration(milliseconds: 250),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ImagePreview(
-                                message: widget.message,
-                                imageBytes: _getImage())));
-                  },
-                  child: Container(
-                    width: 300,
-                    height: 250,
-                    decoration: BoxDecoration(
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ImagePreview(
+                              message: widget.message,
+                              imageBytes: _getImage())));
+                },
+                child: Container(
+                  width: 480,
+                  height: 270,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade900,
+                    borderRadius: BorderRadius.circular(10),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 16,
+                          offset: const Offset(9, 9)),
+                      BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          blurRadius: 16,
+                          offset: const Offset(-9, -9)),
+                    ],
+                  ),
+                  child: AnimatedPadding(
+                    duration: const Duration(milliseconds: 500),
+                    padding: EdgeInsets.all(hover ? 8.0 : 0.0),
+                    child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black.withOpacity(0.2),
-                            blurRadius: 16,
-                            offset: const Offset(9, 9)),
-                        BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            blurRadius: 16,
-                            offset: const Offset(-9, -9)),
-                      ],
-                    ),
-                    child: AnimatedPadding(
-                      duration: const Duration(milliseconds: 500),
-                      padding: EdgeInsets.all(hover ? 8.0 : 0.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
-                        child: Image.memory(
-                          _getImage(),
-                          filterQuality: FilterQuality.high,
-                          fit: BoxFit.fitHeight,
-                        ),
+                      child: Image.memory(
+                        _getImage(),
+                        filterQuality: FilterQuality.high,
+                        fit: BoxFit.fitHeight,
                       ),
                     ),
                   ),

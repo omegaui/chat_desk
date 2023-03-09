@@ -36,7 +36,7 @@ class _UrlChatComponentState extends State<UrlChatComponent> {
             ),
             child: Padding(
               padding:
-              const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
               child: AppUtils.buildTooltip(
                 text: "Click to Open URl",
                 child: Text(

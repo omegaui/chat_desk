@@ -110,9 +110,7 @@ void main() {
       avatar: base64UrlEncode(
           File("/home/omegaui/Downloads/icons8-linux-96.png")
               .readAsBytesSync()))
-    ..connect("127.0.0.1", 8080, (p0) {
-      print(p0);
-    });
+    ..connect("127.0.0.1", 8080, (p0) {});
 
   Future.delayed(const Duration(seconds: 4), () async {
     // client.transmit("omegaui", "hello");
