@@ -1,0 +1,30 @@
+name: Flutter Workflow
+
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.7.3'
+          channel: 'stable'
+      - run: flutter build linux
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Upload Linux Release
+        uses: actions/upload-artifact@v3
+        with:
+          name: release-linux
+          path: build/app/outputs/linux/release/chat_desk
+
+      - name: Upload Screenshoots
+        uses: actions/upload-artifact@v3
+        with:
+          path: screenshots/*.png
