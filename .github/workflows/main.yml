@@ -33,10 +33,10 @@ jobs:
 
       - name: Saving Artifact
         run: |
-          cp -r build/linux/x64/release/* beta-build
+          cp -r build/linux/x64/release/bundle/* beta-build
 
       - name: Preparing Artifact for release
         uses: actions/upload-artifact@v2
         with:
-          name: assets-for-download
+          name: beta-build
           path: beta-build
