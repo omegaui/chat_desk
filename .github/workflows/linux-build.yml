@@ -1,4 +1,4 @@
-name: Flutter Workflow
+name: Linux Build Workflow
 
 on: [push, workflow_dispatch]
 jobs:
@@ -25,18 +25,15 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: List Structure
-        run: ls
-
       - name: Creating build Directory
-        run: mkdir beta-build
+        run: mkdir beta-build-linux
 
       - name: Saving Artifact
         run: |
-          cp -r build/linux/x64/release/bundle/* beta-build
+          cp -r build/linux/x64/release/bundle/* beta-build-linux
 
       - name: Preparing Artifact for release
         uses: actions/upload-artifact@v2
         with:
-          name: beta-build
-          path: beta-build
+          name: beta-build-linux
+          path: beta-build-linux
