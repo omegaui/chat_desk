@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:chat_desk/core/client/client.dart';
 import 'package:chat_desk/core/io/app_manager.dart';
-import 'package:chat_desk/core/io/logger.dart';
 import 'package:chat_desk/io/server_handler.dart';
 import 'package:chat_desk/ui/screens/chat_room/chat_area.dart';
 import 'package:chat_desk/ui/screens/chat_room/chat_room.dart';
@@ -132,11 +131,7 @@ class UserTabState extends State<UserTab> {
       onTap: () {
         if (!(widget.internal)) {
           chatWith(chatArea);
-          thisClient.notifyChange(jsonEncode({
-            "type": "client-side-change",
-            "code": chatSwitched,
-            "with-id": client.id
-          }));
+          thisClient.notifyCompanionSwitch(client.id);
         }
       },
       child: MouseRegion(
