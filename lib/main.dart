@@ -20,7 +20,7 @@ void push(Widget? screen) {
 }
 
 void pop() {
-  contentPaneKey.currentState?.pop();
+  contentPaneKey.currentState?.changeTo(const HomeScreen());
 }
 
 void main() async {
@@ -31,8 +31,8 @@ void main() async {
   runApp(const App());
 
   doWhenWindowReady(() {
-    appWindow.minSize = const Size(1200, 850);
-    appWindow.size = const Size(1200, 850);
+    appWindow.minSize = const Size(1200, 900);
+    appWindow.size = const Size(1200, 900);
     appWindow.alignment = Alignment.center;
     appWindow.show();
   });
@@ -82,27 +82,18 @@ class ContentPane extends StatefulWidget {
 
 class ContentPaneState extends State<ContentPane> {
   Widget? content;
-  List<Widget> contents = [];
 
   @override
   void initState() {
     if (widget.content != null) {
       content = widget.content;
-      contents.add(content as Widget);
     }
     super.initState();
   }
 
   void changeTo(Widget? newContent) {
     setState(() {
-      contents.add(newContent as Widget);
       content = newContent;
-    });
-  }
-
-  void pop() {
-    setState(() {
-      content = contents.elementAt(contents.length - 2);
     });
   }
 

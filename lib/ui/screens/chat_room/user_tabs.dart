@@ -6,6 +6,7 @@ import 'package:chat_desk/core/io/app_manager.dart';
 import 'package:chat_desk/io/server_handler.dart';
 import 'package:chat_desk/ui/screens/chat_room/chat_area.dart';
 import 'package:chat_desk/ui/screens/chat_room/chat_room.dart';
+import 'package:chat_desk/ui/screens/chat_room/controls/chat_components/point_blink.dart';
 import 'package:chat_desk/ui/screens/home_screen.dart';
 import 'package:chat_desk/ui/utils.dart';
 import 'package:flutter/material.dart';
@@ -204,6 +205,13 @@ class UserTabState extends State<UserTab> {
                     ),
                   ],
                 ),
+                const Expanded(
+                    child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 18.0),
+                          // child: PointBlink(),
+                        ))),
               ],
             ),
           ),
