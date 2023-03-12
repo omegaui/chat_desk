@@ -1,3 +1,12 @@
+
+<div align="center" style="margin: 20px;">
+    <a href="https://codeclimate.com/github/omegaui/chat_desk/maintainability"><img src="https://api.codeclimate.com/v1/badges/22ee0cd01d57542e4f45/maintainability" /></a>
+    <a href="https://github.com/omegaui/chat_desk/actions"><img src="https://github.com/omegaui/chat_desk/actions/workflows/build-for-desktop.yml/badge.svg" /></a>
+    <img src="https://img.shields.io/github/downloads/omegaui/chat_desk/total?style=social" />
+    <img src="https://img.shields.io/github/v/release/omegaui/chat_desk" />
+    <img src="https://img.shields.io/github/license/omegaui/chat_desk" />
+</div>
+
 [alpha-preview.webm](https://user-images.githubusercontent.com/73544069/222953852-a379b891-a3f8-4cb9-bb55-848041664768.webm)
 
 # ![](https://img.icons8.com/color/32/null/filled-chat.png) chat_desk (in the making)
