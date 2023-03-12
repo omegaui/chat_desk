@@ -16,7 +16,7 @@ class _PointBlinkState extends State<PointBlink>
     super.initState();
     controller = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 1),
+      duration: const Duration(seconds: 2),
     );
     controller.forward();
     controller.repeat();
@@ -30,17 +30,44 @@ class _PointBlinkState extends State<PointBlink>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: controller,
-      builder: (context, child) {
-        return Container(
-          width: 20 * controller.value,
-          height: 20,
-          decoration: const BoxDecoration(
-            color: Colors.greenAccent,
-          ),
-        );
-      },
+    return SizedBox(
+      width: 40,
+      height: 40,
+      child: Center(
+        child: AnimatedBuilder(
+          animation: controller,
+          builder: (context, child) {
+            return Container(
+              width: 30 * controller.value,
+              height: 30 * controller.value,
+              decoration: BoxDecoration(
+                color: Colors.greenAccent.withOpacity(1 - controller.value),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Center(
+                child: Container(
+                  width: 20 * controller.value,
+                  height: 20 * controller.value,
+                  decoration: BoxDecoration(
+                    color: Colors.greenAccent.withOpacity(1 - controller.value),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Center(
+                    child: Container(
+                      width: 10 * controller.value,
+                      height: 10 * controller.value,
+                      decoration: BoxDecoration(
+                        color: Colors.blue.withOpacity(controller.value),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }

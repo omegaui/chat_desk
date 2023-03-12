@@ -69,14 +69,14 @@ class Client {
 }
 
 void main() {
-  Client(
-          id: "corpus",
-          description: "Just Another User",
-          code: "code",
-          avatar: base64UrlEncode(
-              File("/home/omegaui/Downloads/icons8-package-94.png")
-                  .readAsBytesSync()))
-      .connect("127.0.0.1", 8080, (p0) {});
+  // Client(
+  //         id: "corpus",
+  //         description: "Just Another User",
+  //         code: "code",
+  //         avatar: base64UrlEncode(
+  //             File("/home/omegaui/Downloads/icons8-package-94.png")
+  //                 .readAsBytesSync()))
+  //     .connect("127.0.0.1", 8080, (p0) {});
   // Client(
   //         id: "zeno",
   //         description: "Just Another User",
@@ -102,27 +102,27 @@ void main() {
   //                 .readAsBytesSync()))
   //     .connect("127.0.0.1", 8080, (p0) {});
   //
-  // Client(
-  //         id: "john",
-  //         description: "Just Another User",
-  //         code: "code",
-  //         avatar: base64UrlEncode(
-  //             File("/home/omegaui/Downloads/icons8-kawaii-shellfish-96.png")
-  //                 .readAsBytesSync()))
-  //     .connect("127.0.0.1", 8080, (p0) {});
+  var c2 = Client(
+      id: "john",
+      description: "Just Another User",
+      code: "code",
+      avatar: base64UrlEncode(
+          File("/home/omegaui/Downloads/icons8-kawaii-shellfish-96.png")
+              .readAsBytesSync()))
+    ..connect("127.0.0.1", 8080, (p0) {});
 
-  // var client = Client(
-  //     id: "blaze",
-  //     description: "Just Another User",
-  //     code: "code",
-  //     avatar: base64UrlEncode(
-  //         File("/home/omegaui/Downloads/icons8-linux-96.png")
-  //             .readAsBytesSync()))
-  //   ..connect("127.0.0.1", 8080, (p0) {});
+  var client = Client(
+      id: "blaze",
+      description: "Just Another User",
+      code: "code",
+      avatar: base64UrlEncode(
+          File("/home/omegaui/Downloads/icons8-linux-96.png")
+              .readAsBytesSync()))
+    ..connect("127.0.0.1", 8080, (p0) {});
 
   Future.delayed(const Duration(seconds: 4), () async {
-    // client.transmit("omegaui", "hello");
-    // client.transmit("omegaui", "What are you doing?");
+    client.transmit("omegaui", "hello", "x");
+    client.transmit("omegaui", "What are you doing?", "y");
     // client.transmit(
     //     "omegaui",
     //     base64UrlEncode(File(
@@ -146,6 +146,11 @@ void main() {
     //           .readAsStringSync()
     //     },
     //     type: "text-file");
+  });
+
+  Future.delayed(const Duration(seconds: 10), () async {
+    c2.transmit("omegaui", "hello", "zx");
+    c2.transmit("omegaui", "What are you doing?", "zy");
   });
 
   // Future.delayed(const Duration(seconds: 4), () async {

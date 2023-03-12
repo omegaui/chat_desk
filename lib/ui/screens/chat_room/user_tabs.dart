@@ -19,6 +19,7 @@ void notify(String message, Color color) {
 
 Map<String, MemoryImage> avatarCache = {};
 Map<String, GlobalKey<ChatAreaState>> chatKeys = {};
+Map<String, bool> messageArrivedMap = {};
 
 class UserTabs extends StatefulWidget {
   const UserTabs({super.key});
@@ -40,9 +41,11 @@ class UserTabsState extends State<UserTabs> {
     super.initState();
   }
 
-  void rebuild(List<dynamic> users) => setState(() {
-        this.users = users;
-        for (dynamic user in users) {
+  void rebuild({List<dynamic>? users}) => setState(() {
+        if (users != null) {
+          this.users = users;
+        }
+        for (dynamic user in this.users) {
           var imageBytes = base64Url.decode(user['avatar']);
           avatarCache.putIfAbsent(user['id'], () => MemoryImage(imageBytes));
         }
@@ -97,7 +100,7 @@ class UserTab extends StatefulWidget {
 class UserTabState extends State<UserTab> {
   bool hover = false;
   bool _blink = false;
-  late Client client;
+  Client? client;
   late ChatArea chatArea;
   GlobalKey<ChatAreaState> chatAreaKey = GlobalKey();
 
@@ -109,7 +112,6 @@ class UserTabState extends State<UserTab> {
 
   @override
   void initState() {
-    super.initState();
     if (!widget.internal) {
       chatArea = ChatArea(
         key: chatAreaKey,
@@ -118,6 +120,7 @@ class UserTabState extends State<UserTab> {
       chatKeys.update(widget.userData['id'], (value) => chatAreaKey,
           ifAbsent: () => chatAreaKey);
     }
+    super.initState();
   }
 
   @override
@@ -132,7 +135,11 @@ class UserTabState extends State<UserTab> {
       onTap: () {
         if (!(widget.internal)) {
           chatWith(chatArea);
-          thisClient.notifyCompanionSwitch(client.id);
+          thisClient.notifyCompanionSwitch(client!.id);
+          print("[CLEAR] ${client!.id}");
+          messageArrivedMap.update(client!.id, (value) => false,
+              ifAbsent: () => false);
+          userTabKey.currentState?.rebuild();
         }
       },
       child: MouseRegion(
@@ -205,13 +212,14 @@ class UserTabState extends State<UserTab> {
                     ),
                   ],
                 ),
-                const Expanded(
-                    child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 18.0),
-                          // child: PointBlink(),
-                        ))),
+                if (client != null && (messageArrivedMap[client!.id] ?? false))
+                  const Expanded(
+                      child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 18.0),
+                            child: PointBlink(),
+                          ))),
               ],
             ),
           ),

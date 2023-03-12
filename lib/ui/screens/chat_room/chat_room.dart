@@ -26,7 +26,7 @@ void refreshUserTabs() async {
     var response = await http.get(Uri.parse(
         'http://$superHost:$superPort/onboard/${thisClient.toString()}'));
     var urlDecoded = Uri.decodeFull(response.body);
-    userTabKey.currentState?.rebuild(jsonDecode(urlDecoded)['users']);
+    userTabKey.currentState?.rebuild(users: jsonDecode(urlDecoded)['users']);
   } on Exception {}
 }
 

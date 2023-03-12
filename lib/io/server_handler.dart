@@ -112,6 +112,11 @@ void joinServer(String host, int port,
       chatKeys[response['sender']]
           ?.currentState
           ?.pushToChat(response['id'], response['type'], response['message']);
+      if (currentChatArea != chatKeys[response['sender']]?.currentWidget!) {
+        messageArrivedMap.update(response['sender'], (value) => true,
+            ifAbsent: () => true);
+        userTabKey.currentState?.rebuild();
+      }
     }
   });
 }

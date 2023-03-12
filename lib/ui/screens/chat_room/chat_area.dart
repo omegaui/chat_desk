@@ -136,8 +136,13 @@ class ChatAreaState extends State<ChatArea> {
                       controller: messageController,
                       cursorColor: Colors.greenAccent,
                       textInputAction: TextInputAction.none,
-                      onTap: () =>
-                          thisClient.notifyCompanionSwitch(widget.client.id),
+                      onTap: () {
+                        thisClient.notifyCompanionSwitch(widget.client.id);
+                        messageArrivedMap.update(
+                            widget.client.id, (value) => false,
+                            ifAbsent: () => false);
+                        userTabKey.currentState?.rebuild();
+                      },
                       onSubmitted: (value) {
                         setState(() {
                           var time = DateTime.now();
