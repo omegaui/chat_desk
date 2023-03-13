@@ -1,15 +1,21 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:chat_desk/core/io/app_manager.dart';
+import 'package:chat_desk/io/app_style.dart';
 import 'package:chat_desk/ui/screens/chat_room/chat_room.dart';
 import 'package:chat_desk/ui/screens/home_screen.dart';
 import 'package:chat_desk/ui/utils.dart';
 import 'package:chat_desk/ui/window_decoration/title_bar.dart';
 import 'package:flutter/material.dart';
 
+GlobalKey<AppState> appKey = GlobalKey();
 GlobalKey<ContentPaneState> contentPaneKey = GlobalKey();
 GlobalKey<ChatRoomState> chatRoomKey = GlobalKey();
 
 var chatRoom = ChatRoom(key: chatRoomKey);
+
+void reloadApp() {
+  appKey.currentState?.rebuild();
+}
 
 bool inChatRoom() {
   return contentPaneKey.currentState?.content == chatRoom;
@@ -27,8 +33,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await AppManager.initAppData();
+  
+  AppStyleManager.init(); /// work in progress
 
-  runApp(const App());
+  runApp(App(key: appKey));
 
   doWhenWindowReady(() {
     appWindow.minSize = const Size(1200, 900);
@@ -38,8 +46,18 @@ void main() async {
   });
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({super.key});
+
+  @override
+  State<App> createState() => AppState();
+}
+
+class AppState extends State<App> {
+
+  void rebuild() => setState(() {
+
+  });
 
   @override
   Widget build(BuildContext context) {
