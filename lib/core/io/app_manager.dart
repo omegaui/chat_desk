@@ -1,3 +1,4 @@
+import 'package:chat_desk/io/app_style.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppManager {
@@ -18,5 +19,9 @@ class AppManager {
 
   static String? getAvatar() {
     return preferences.getString('avatar');
+  }
+
+  static String getStyleMode() {
+    return preferences.getString('style-mode') ?? AppStyle.dark;
   }
 }
