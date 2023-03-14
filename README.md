@@ -51,4 +51,5 @@ flutter run
 
 <div align="center">
     <img src="images/preview.png">
+    <img src="images/light-preview.png">
 </div>
