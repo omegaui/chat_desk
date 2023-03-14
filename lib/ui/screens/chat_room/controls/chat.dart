@@ -1,4 +1,5 @@
 import 'package:chat_desk/core/io/message.dart';
+import 'package:chat_desk/io/app_style.dart';
 import 'package:chat_desk/io/server_handler.dart';
 import 'package:chat_desk/ui/screens/chat_room/controls/chat_components/text_file_chat_components.dart';
 import 'package:chat_desk/ui/screens/chat_room/controls/chat_components/url_chat_component.dart';
@@ -30,7 +31,8 @@ class Chat extends StatelessWidget {
             style: TextStyle(
                 fontFamily: "Sen",
                 fontSize: 14,
-                color: Colors.grey.withOpacity(0.6)),
+                color: Colors.grey
+                    .withOpacity(currentStyleMode == AppStyle.dark ? 0.6 : 1)),
           ),
         if (message.type == 'text' && !isURL)
           Flexible(
@@ -41,10 +43,10 @@ class Chat extends StatelessWidget {
               ),
               child: Text(
                 message.message,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: "Sen",
                   fontSize: 16,
-                  color: Colors.white,
+                  color: currentStyle.getTextColor(),
                 ),
               ),
             ),
@@ -66,7 +68,8 @@ class Chat extends StatelessWidget {
             style: TextStyle(
                 fontFamily: "Sen",
                 fontSize: 14,
-                color: Colors.grey.withOpacity(0.6)),
+                color: Colors.grey
+                    .withOpacity(currentStyleMode == AppStyle.dark ? 0.6 : 1)),
           ),
       ],
     );

@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:chat_desk/core/client/client.dart';
 import 'package:chat_desk/core/io/app_manager.dart';
+import 'package:chat_desk/io/app_style.dart';
 import 'package:chat_desk/io/server_handler.dart';
 import 'package:chat_desk/ui/screens/chat_room/chat_area.dart';
 import 'package:chat_desk/ui/screens/chat_room/chat_room.dart';
@@ -56,7 +57,9 @@ class UserTabsState extends State<UserTabs> {
     return Container(
       height: MediaQuery.of(context).size.height - 132,
       decoration: BoxDecoration(
-        color: Colors.grey.shade800.withOpacity(0.2),
+        color: currentStyleMode == AppStyle.dark
+            ? Colors.grey.shade800.withOpacity(0.2)
+            : Colors.black.withOpacity(0.8),
         borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(20), bottomLeft: Radius.circular(20)),
       ),
@@ -136,7 +139,6 @@ class UserTabState extends State<UserTab> {
         if (!(widget.internal)) {
           chatWith(chatArea);
           thisClient.notifyCompanionSwitch(client!.id);
-          print("[CLEAR] ${client!.id}");
           messageArrivedMap.update(client!.id, (value) => false,
               ifAbsent: () => false);
           userTabKey.currentState?.rebuild();

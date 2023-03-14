@@ -4,6 +4,7 @@ import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:chat_desk/core/io/message.dart';
+import 'package:chat_desk/io/app_style.dart';
 import 'package:chat_desk/ui/screens/chat_room/controls/image_preview.dart';
 import 'package:chat_desk/ui/screens/chat_room/user_tabs.dart';
 import 'package:chat_desk/ui/utils.dart';
@@ -71,7 +72,7 @@ class _ImageHolderState extends State<ImageHolder> {
                   width: 480,
                   height: 270,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade900,
+                    color: currentStyle.getBackground(),
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: [
                       BoxShadow(
@@ -117,9 +118,9 @@ class _ImageHolderState extends State<ImageHolder> {
                         notify("Image Saved", Colors.greenAccent);
                       }
                     },
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.save_alt_rounded,
-                      color: Colors.white,
+                      color: currentStyle.getTextColor(),
                     ),
                     splashRadius: 30,
                     iconSize: 32,

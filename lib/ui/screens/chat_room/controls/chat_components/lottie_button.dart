@@ -1,3 +1,4 @@
+import 'package:chat_desk/io/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -28,7 +29,11 @@ class _LottieButtonState extends State<LottieButton> {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 250),
           decoration: BoxDecoration(
-            color: hover ? Colors.grey.withOpacity(0.2) : Colors.grey.shade800,
+            color: hover
+                ? Colors.grey.withOpacity(0.2)
+                : (currentStyleMode == AppStyle.dark
+                    ? Colors.grey.shade800
+                    : Colors.grey.withOpacity(0.2)),
             borderRadius: BorderRadius.circular(40),
           ),
           padding: EdgeInsets.all(hover ? 2 : 12),

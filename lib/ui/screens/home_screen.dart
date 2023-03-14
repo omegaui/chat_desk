@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:chat_desk/core/io/app_manager.dart';
 import 'package:chat_desk/core/io/logger.dart';
 import 'package:chat_desk/core/server/server.dart';
+import 'package:chat_desk/io/app_style.dart';
 import 'package:chat_desk/io/server_handler.dart';
 import 'package:chat_desk/main.dart';
 import 'package:chat_desk/ui/utils.dart';
@@ -36,7 +37,7 @@ bool validUsername = true;
 bool validDescription = true;
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,7 @@ class HomeScreen extends StatelessWidget {
             width: 500),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Expanded(child: UserSettings()),
             Expanded(child: ConnectionConsole()),
           ],
@@ -57,7 +58,7 @@ class HomeScreen extends StatelessWidget {
 }
 
 class UserSettings extends StatelessWidget {
-  const UserSettings({super.key});
+  UserSettings({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +68,7 @@ class UserSettings extends StatelessWidget {
       children: [
         AppUtils.buildTooltip(
           text: "Click to change Avatar",
-          child: const Avatar(),
+          child: Avatar(),
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -78,8 +79,8 @@ class UserSettings extends StatelessWidget {
                   width: 200,
                   child: TextField(
                     controller: usernameController,
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: currentStyle.getTextColor(),
                       fontFamily: "Sen",
                       fontSize: 18,
                     ),
@@ -100,8 +101,8 @@ class UserSettings extends StatelessWidget {
                           fontFamily: "Itim", fontWeight: FontWeight.bold),
                       errorMaxLines: 4,
                       hintText: "Enter your username",
-                      hintStyle:
-                          const TextStyle(color: Colors.white, fontSize: 18),
+                      hintStyle: TextStyle(
+                          color: currentStyle.getTextColor(), fontSize: 18),
                     ),
                     onChanged: (value) async {
                       value = value.trim();
@@ -139,8 +140,8 @@ class UserSettings extends StatelessWidget {
                   width: 200,
                   child: TextField(
                     controller: descriptionController,
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: currentStyle.getTextColor(),
                       fontFamily: "Sen",
                       fontSize: 14,
                     ),
@@ -161,8 +162,8 @@ class UserSettings extends StatelessWidget {
                           fontFamily: "Itim", fontWeight: FontWeight.bold),
                       errorMaxLines: 4,
                       hintText: "A thought or description of yours",
-                      hintStyle:
-                          const TextStyle(color: Colors.white, fontSize: 12),
+                      hintStyle: TextStyle(
+                          color: currentStyle.getTextColor(), fontSize: 12),
                     ),
                     onChanged: (value) async {
                       value = value.trim();
@@ -184,7 +185,7 @@ class UserSettings extends StatelessWidget {
 }
 
 class ConnectionConsole extends StatelessWidget {
-  const ConnectionConsole({super.key});
+  ConnectionConsole({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -195,7 +196,7 @@ class ConnectionConsole extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Text(
             "Connect to a Server",
-            style: TextStyle(color: Colors.grey.shade200, fontSize: 32),
+            style: TextStyle(color: currentStyle.getTextColor(), fontSize: 32),
           ),
         ),
         Padding(
@@ -213,8 +214,8 @@ class ConnectionConsole extends StatelessWidget {
                         return TextField(
                           controller: ipController,
                           textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: TextStyle(
+                            color: currentStyle.getTextColor(),
                             fontFamily: "Sen",
                             fontSize: 18,
                           ),
@@ -230,8 +231,8 @@ class ConnectionConsole extends StatelessWidget {
                                 borderSide: BorderSide(
                                     color: Colors.redAccent, width: 2)),
                             hintText: "Enter IP Address",
-                            hintStyle: const TextStyle(
-                              color: Colors.white,
+                            hintStyle: TextStyle(
+                              color: currentStyle.getTextColor(),
                               fontFamily: "Sen",
                               fontSize: 16,
                             ),
@@ -317,14 +318,14 @@ class ConnectionConsole extends StatelessWidget {
                           decoration: BoxDecoration(
                               color: Colors.blue,
                               borderRadius: BorderRadius.circular(10)),
-                          child: const Padding(
-                            padding: EdgeInsets.all(4.0),
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
                             child: Text(
                               "localhost",
                               style: TextStyle(
                                   fontFamily: "Sen",
                                   fontSize: 16,
-                                  color: Colors.white),
+                                  color: currentStyle.getTextColor()),
                             ),
                           ),
                         ),
@@ -341,8 +342,8 @@ class ConnectionConsole extends StatelessWidget {
                     return TextField(
                       controller: portController,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: currentStyle.getTextColor(),
                         fontFamily: "Sen",
                         fontSize: 18,
                       ),
@@ -357,8 +358,8 @@ class ConnectionConsole extends StatelessWidget {
                             borderSide:
                                 BorderSide(color: Colors.redAccent, width: 2)),
                         hintText: "Enter Port number",
-                        hintStyle: const TextStyle(
-                          color: Colors.white,
+                        hintStyle: TextStyle(
+                          color: currentStyle.getTextColor(),
                           fontFamily: "Sen",
                           fontSize: 18,
                         ),
@@ -383,8 +384,8 @@ class ConnectionConsole extends StatelessWidget {
                       controller: codeController,
                       obscureText: true,
                       textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        color: Colors.white,
+                      style: TextStyle(
+                        color: currentStyle.getTextColor(),
                         fontFamily: "Sen",
                         fontSize: 18,
                       ),
@@ -399,8 +400,8 @@ class ConnectionConsole extends StatelessWidget {
                             borderSide:
                                 BorderSide(color: Colors.redAccent, width: 2)),
                         hintText: "Enter Server Code",
-                        hintStyle: const TextStyle(
-                          color: Colors.white,
+                        hintStyle: TextStyle(
+                          color: currentStyle.getTextColor(),
                           fontFamily: "Sen",
                           fontSize: 18,
                         ),
@@ -422,7 +423,7 @@ class ConnectionConsole extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 18.0),
           child: Wrap(
             spacing: 10,
-            children: const [
+            children: [
               JoinButton(),
               HostButton(),
             ],
@@ -435,7 +436,7 @@ class ConnectionConsole extends StatelessWidget {
 }
 
 class JoinButton extends StatefulWidget {
-  const JoinButton({super.key});
+  JoinButton({super.key});
 
   @override
   State<JoinButton> createState() => _JoinButtonState();
@@ -506,7 +507,9 @@ class _JoinButtonState extends State<JoinButton> {
                   width: 120,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade800.withOpacity(0.5),
+                    color: currentStyleMode == AppStyle.dark
+                        ? Colors.grey.shade800.withOpacity(0.5)
+                        : Colors.white.withOpacity(0.7),
                     borderRadius: BorderRadius.circular(30),
                     border: hover
                         ? null
@@ -535,7 +538,7 @@ class _JoinButtonState extends State<JoinButton> {
                       style: TextStyle(
                           fontFamily: "Sen",
                           fontWeight: FontWeight.bold,
-                          color: Colors.white.withOpacity(0.8),
+                          color: currentStyle.getTextColor().withOpacity(0.8),
                           fontSize: 22),
                     ),
                   ),
@@ -547,7 +550,7 @@ class _JoinButtonState extends State<JoinButton> {
 }
 
 class HostButton extends StatefulWidget {
-  const HostButton({super.key});
+  HostButton({super.key});
 
   @override
   State<HostButton> createState() => _HostButtonState();
@@ -620,7 +623,9 @@ class _HostButtonState extends State<HostButton> {
                   width: 120,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade800.withOpacity(0.5),
+                    color: currentStyleMode == AppStyle.dark
+                        ? Colors.grey.shade800.withOpacity(0.5)
+                        : Colors.white.withOpacity(0.7),
                     borderRadius: BorderRadius.circular(30),
                     border: hover
                         ? null
@@ -649,7 +654,7 @@ class _HostButtonState extends State<HostButton> {
                       style: TextStyle(
                           fontFamily: "Sen",
                           fontWeight: FontWeight.bold,
-                          color: Colors.white.withOpacity(0.8),
+                          color: currentStyle.getTextColor().withOpacity(0.8),
                           fontSize: 22),
                     ),
                   ),
@@ -661,7 +666,7 @@ class _HostButtonState extends State<HostButton> {
 }
 
 class Avatar extends StatefulWidget {
-  const Avatar({super.key});
+  Avatar({super.key});
 
   @override
   State<Avatar> createState() => _AvatarState();
@@ -698,7 +703,9 @@ class _AvatarState extends State<Avatar> {
             width: 300,
             height: 300,
             decoration: BoxDecoration(
-              color: Colors.grey.shade800.withOpacity(0.2),
+              color: currentStyleMode == AppStyle.dark
+                  ? Colors.grey.shade800.withOpacity(0.2)
+                  : Colors.white.withOpacity(0.7),
               borderRadius: BorderRadius.circular(1000),
               boxShadow: hover
                   ? [
@@ -744,7 +751,7 @@ class _AvatarState extends State<Avatar> {
 }
 
 class StatusBar extends StatefulWidget {
-  const StatusBar({super.key});
+  StatusBar({super.key});
 
   @override
   State<StatusBar> createState() => StatusBarState();

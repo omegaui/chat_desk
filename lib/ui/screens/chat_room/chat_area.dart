@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:chat_desk/core/client/client.dart';
 import 'package:chat_desk/core/io/logger.dart';
 import 'package:chat_desk/core/io/message.dart';
+import 'package:chat_desk/io/app_style.dart';
 import 'package:chat_desk/io/server_handler.dart';
 import 'package:chat_desk/ui/screens/chat_room/chat_room.dart';
 import 'package:chat_desk/ui/screens/chat_room/controls/chat.dart';
@@ -15,7 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class ChatArea extends StatefulWidget {
-  const ChatArea({
+  ChatArea({
     super.key,
     required this.client,
   });
@@ -83,8 +84,10 @@ class ChatAreaState extends State<ChatArea> {
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Text(
                   widget.client.id,
-                  style: const TextStyle(
-                      fontFamily: "Sen", fontSize: 20, color: Colors.white),
+                  style: TextStyle(
+                      fontFamily: "Sen",
+                      fontSize: 20,
+                      color: currentStyle.getTextColor()),
                 ),
               ),
               OnlineTracker(
@@ -130,7 +133,9 @@ class ChatAreaState extends State<ChatArea> {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Container(
-                    color: Colors.grey.shade800.withOpacity(0.1),
+                    color: currentStyleMode == AppStyle.dark
+                        ? Colors.grey.shade800.withOpacity(0.1)
+                        : Colors.white.withOpacity(0.7),
                     width: MediaQuery.of(context).size.width - 460,
                     child: TextField(
                       controller: messageController,
@@ -160,10 +165,10 @@ class ChatAreaState extends State<ChatArea> {
                           messageController.text = "";
                         });
                       },
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontFamily: "Sen",
                         fontSize: 15,
-                        color: Colors.white,
+                        color: currentStyle.getTextColor(),
                       ),
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
@@ -174,14 +179,16 @@ class ChatAreaState extends State<ChatArea> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20),
                           borderSide: BorderSide(
-                              color: Colors.grey.shade800.withOpacity(0.7),
+                              color: currentStyleMode == AppStyle.dark
+                                  ? Colors.grey.shade800.withOpacity(0.7)
+                                  : Colors.grey.withOpacity(0.7),
                               width: 2),
                         ),
                         hintText: "Type your message here ...",
                         hintStyle: TextStyle(
                           fontFamily: "Itim",
                           fontSize: 18,
-                          color: Colors.white.withOpacity(0.7),
+                          color: currentStyle.getTextColor().withOpacity(0.7),
                         ),
                       ),
                     ),
@@ -280,7 +287,9 @@ class ChatAreaState extends State<ChatArea> {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height - 132,
       decoration: BoxDecoration(
-        color: Colors.grey.shade800.withOpacity(0.1),
+        color: currentStyleMode == AppStyle.dark
+            ? Colors.grey.shade800.withOpacity(0.1)
+            : Colors.white.withOpacity(0.7),
         borderRadius: const BorderRadius.only(
             topRight: Radius.circular(20), bottomRight: Radius.circular(20)),
       ),
@@ -290,7 +299,7 @@ class ChatAreaState extends State<ChatArea> {
 }
 
 class OnlineTracker extends StatefulWidget {
-  const OnlineTracker({super.key, required this.client});
+  OnlineTracker({super.key, required this.client});
 
   final Client client;
 

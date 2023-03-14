@@ -1,4 +1,5 @@
 import 'package:chat_desk/core/io/message.dart';
+import 'package:chat_desk/io/app_style.dart';
 import 'package:chat_desk/ui/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -31,7 +32,10 @@ class _UrlChatComponentState extends State<UrlChatComponent> {
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 250),
             decoration: BoxDecoration(
-              color: hover ? Colors.grey.withOpacity(0.1) : Colors.transparent,
+              color: hover
+                  ? Colors.grey.withOpacity(
+                      currentStyleMode == AppStyle.dark ? 0.1 : 0.2)
+                  : Colors.transparent,
               borderRadius: BorderRadius.circular(20),
             ),
             child: Padding(
@@ -41,10 +45,12 @@ class _UrlChatComponentState extends State<UrlChatComponent> {
                 text: "Click to Open URl",
                 child: Text(
                   widget.message.message,
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontFamily: "Sen",
                       fontSize: 15,
-                      color: Colors.greenAccent),
+                      color: currentStyleMode == AppStyle.dark
+                          ? Colors.greenAccent
+                          : Colors.greenAccent.shade700),
                 ),
               ),
             ),

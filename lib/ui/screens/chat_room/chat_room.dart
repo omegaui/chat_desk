@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:chat_desk/core/io/logger.dart';
+import 'package:chat_desk/io/app_style.dart';
 import 'package:chat_desk/io/server_handler.dart';
 import 'package:chat_desk/main.dart';
 import 'package:chat_desk/ui/screens/chat_room/chat_area.dart';
@@ -57,7 +58,7 @@ class ChatRoomState extends State<ChatRoom> {
           style: TextStyle(
               fontFamily: "Itim",
               fontSize: 22,
-              color: Colors.white.withOpacity(0.7)),
+              color: currentStyle.getTextColor().withOpacity(0.7)),
         ),
       ],
     );
@@ -70,12 +71,12 @@ class ChatRoomState extends State<ChatRoom> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
-            children: const [
+            children: [
               IconButton(
                 onPressed: pop,
                 icon: Icon(
                   Icons.arrow_back_rounded,
-                  color: Colors.white,
+                  color: currentStyle.getTextColor(),
                 ),
                 splashRadius: 15,
               ),
@@ -84,7 +85,7 @@ class ChatRoomState extends State<ChatRoom> {
                 style: TextStyle(
                   fontFamily: "Sen",
                   fontSize: 16,
-                  color: Colors.white,
+                  color: currentStyle.getTextColor(),
                 ),
               ),
             ],

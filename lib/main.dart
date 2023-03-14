@@ -1,6 +1,7 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:chat_desk/core/io/app_manager.dart';
 import 'package:chat_desk/io/app_style.dart';
+import 'package:chat_desk/ui/app_style_switcher.dart';
 import 'package:chat_desk/ui/screens/chat_room/chat_room.dart';
 import 'package:chat_desk/ui/screens/home_screen.dart';
 import 'package:chat_desk/ui/utils.dart';
@@ -26,15 +27,17 @@ void push(Widget? screen) {
 }
 
 void pop() {
-  contentPaneKey.currentState?.changeTo(const HomeScreen());
+  contentPaneKey.currentState?.changeTo(HomeScreen());
 }
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await AppManager.initAppData();
-  
-  AppStyleManager.init(); /// work in progress
+
+  AppStyleManager.init();
+
+  /// work in progress
 
   runApp(App(key: appKey));
 
@@ -54,10 +57,7 @@ class App extends StatefulWidget {
 }
 
 class AppState extends State<App> {
-
-  void rebuild() => setState(() {
-
-  });
+  void rebuild() => setState(() {});
 
   @override
   Widget build(BuildContext context) {
@@ -65,24 +65,35 @@ class AppState extends State<App> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.grey.shade900,
-        body: Stack(
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: Column(
-                children: [
-                  const TitleBar(),
-                  Expanded(
-                    child: ContentPane(
-                      key: contentPaneKey,
-                      content: const HomeScreen(),
+        backgroundColor: currentStyle.getBackground(),
+        body: AnimatedContainer(
+          duration: const Duration(milliseconds: 500),
+          color: currentStyle.getBackground(),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: Column(
+                  children: [
+                    const TitleBar(),
+                    Expanded(
+                      child: ContentPane(
+                        key: contentPaneKey,
+                        content: HomeScreen(),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+              const Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 50.0, right: 20.0),
+                  child: AppStyleSwitcher(),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

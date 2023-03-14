@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:chat_desk/core/io/message.dart';
+import 'package:chat_desk/io/app_style.dart';
 import 'package:chat_desk/ui/window_decoration/title_bar.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class ImagePreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey.shade900,
+      backgroundColor: currentStyle.getBackground(),
       body: Column(
         children: [
           const TitleBar(),
@@ -31,9 +32,9 @@ class ImagePreview extends StatelessWidget {
                   alignment: Alignment.center,
                   child: IconButton(
                     onPressed: () => Navigator.pop(context),
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.close_fullscreen,
-                      color: Colors.white,
+                      color: currentStyle.getTextColor(),
                     ),
                     splashRadius: 30,
                     iconSize: 32,

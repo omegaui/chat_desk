@@ -41,31 +41,29 @@ class DarkStyle extends AppStyle {
 
   @override
   Color getTextColor() {
-    return Colors.grey.shade300;
+    return Colors.white;
   }
 }
 
-get currentStyle => AppStyleManager._style;
+late AppStyle currentStyle;
+
+get currentStyleMode => currentStyle.getMode();
 
 class AppStyleManager {
-  static late AppStyle _style;
-
-  static get currentStyle => _style;
-
   static void init() {
-    _style = AppManager.getStyleMode() == AppStyle.light
+    currentStyle = AppManager.getStyleMode() == AppStyle.light
         ? LightStyle()
         : DarkStyle();
   }
 
   static void switchStyle(String styleMode) {
-    if (_style.getMode() == styleMode) {
+    if (currentStyleMode == styleMode) {
       return;
     }
     if (styleMode == AppStyle.light) {
-      _style = LightStyle();
+      currentStyle = LightStyle();
     } else if (styleMode == AppStyle.dark) {
-      _style = DarkStyle();
+      currentStyle = DarkStyle();
     }
     reloadApp();
   }

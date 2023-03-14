@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 
+import 'package:chat_desk/io/app_style.dart';
 import 'package:flutter/material.dart';
 
 class AppUtils {
@@ -54,7 +55,7 @@ class AppUtils {
       {String? text, Widget? child, EdgeInsets? margin}) {
     return Tooltip(
       decoration: BoxDecoration(
-        color: Colors.grey.shade900,
+        color: currentStyle.getBackground(),
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
@@ -71,8 +72,8 @@ class AppUtils {
       ),
       message: text,
       textAlign: TextAlign.center,
-      textStyle:
-          const TextStyle(fontFamily: "Sen", fontSize: 14, color: Colors.white),
+      textStyle: TextStyle(
+          fontFamily: "Sen", fontSize: 14, color: currentStyle.getTextColor()),
       preferBelow: true,
       padding: const EdgeInsets.all(10),
       margin: margin,

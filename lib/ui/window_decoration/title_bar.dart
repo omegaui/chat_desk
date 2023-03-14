@@ -1,4 +1,5 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
+import 'package:chat_desk/io/app_style.dart';
 import 'package:chat_desk/io/server_handler.dart';
 import 'package:chat_desk/main.dart';
 import 'package:chat_desk/ui/screens/home_screen.dart';
@@ -19,19 +20,21 @@ class TitleBar extends StatelessWidget {
             child: SizedBox(
               height: 40,
               child: Row(
-                children: const [
+                children: [
                   Icon(
                     Icons.chat,
-                    color: Colors.white,
+                    color: currentStyle.getTextColor(),
                     size: 36,
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Text(
                     "Welcome to Chat Desk",
                     style: TextStyle(
-                        fontFamily: "Sen", fontSize: 18, color: Colors.white),
+                        fontFamily: "Sen",
+                        fontSize: 18,
+                        color: currentStyle.getTextColor()),
                   ),
-                  Expanded(
+                  const Expanded(
                     child: Align(
                       alignment: Alignment.centerRight,
                       child: WindowButtons(),
