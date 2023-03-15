@@ -29,7 +29,13 @@ A self-hosted chat application for desktop written in Flutter!
 ### ![](https://img.icons8.com/color/32/null/linux--v1.png) Linux, ![](https://img.icons8.com/fluency/32/null/windows-10.png) Windows and ![](https://img.icons8.com/color/32/null/mac-logo.png) MacOS
 Head over to **Releases**
 
-####  Build From Source
+### Linux One Line Install
+
+```shell
+curl "https://raw.githubusercontent.com/omegaui/chat_desk_linux_install_script/main/script/install-linux.sh" | sh
+```
+
+##  Build From Source
 
 **It's easy**
 
