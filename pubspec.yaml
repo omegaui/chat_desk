@@ -41,11 +41,13 @@ dependencies:
   web_socket_channel: ^2.3.0
   http: ^0.13.5
   file_picker: ^5.2.5
-  string_validator: ^1.0.0
+  string_validator: ^0.3.0
   lottie: ^2.2.0
   network_info_plus: ^3.0.2
   url_launcher: ^6.1.10
   build_runner: ^2.3.3
+  metadata_fetch: ^0.4.1
+  animated_text_kit: ^4.2.2
 
 dev_dependencies:
   flutter_test:
