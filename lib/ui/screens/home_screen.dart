@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:chat_desk/core/io/app_manager.dart';
+import 'package:chat_desk/io/app_manager.dart';
 import 'package:chat_desk/core/io/logger.dart';
 import 'package:chat_desk/core/server/server.dart';
 import 'package:chat_desk/io/app_style.dart';

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:chat_desk/core/client/client.dart';
-import 'package:chat_desk/core/io/app_manager.dart';
+import 'package:chat_desk/io/app_manager.dart';
 import 'package:chat_desk/io/app_style.dart';
 import 'package:chat_desk/io/server_handler.dart';
 import 'package:chat_desk/ui/screens/chat_room/chat_area.dart';

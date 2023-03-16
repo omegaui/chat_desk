@@ -35,6 +35,14 @@ Head over to **Releases**
 curl "https://raw.githubusercontent.com/omegaui/chat_desk_linux_install_script/main/script/install-linux.sh" | sh
 ```
 
+### Windows and Mac
+Apart from setup, you are required to download `chat_desk_core` at the installation root directory,
+
+Run the following to download it,
+```shell
+wget https://raw.githubusercontent.com/omegaui/chat_desk_core/main/bin/chat_desk_core.exe
+```
+
 ##  Build From Source
 
 **It's easy**
@@ -48,6 +56,9 @@ cd chat_desk
 - Getting Dependencies
 ```shell
 flutter pub get
+wget https://raw.githubusercontent.com/omegaui/chat_desk_core/main/bin/chat_desk_core.exe
+# for linux
+# sudo chmod 777 chat_desk_core.exe
 ```
 
 - Launching

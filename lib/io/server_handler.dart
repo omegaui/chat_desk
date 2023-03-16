@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:chat_desk/core/client/client.dart';
-import 'package:chat_desk/core/io/app_manager.dart';
+import 'package:chat_desk/io/app_manager.dart';
 import 'package:chat_desk/core/io/logger.dart';
 import 'package:chat_desk/core/io/message.dart';
 import 'package:chat_desk/main.dart';
@@ -26,8 +26,17 @@ class ServerHandler {
   ServerHandler(this.host, this.port);
 
   void start(Function onStartComplete, Function onStartFailed) async {
-    _serverProcess =
-        await Process.start('dart', ["lib/core/server/server.dart"]);
+    var coreFile = File("chat_desk_core.exe");
+    if (!coreFile.existsSync()) {
+      print("Core cannot be located!");
+      print(
+          "Run the command below in the root directory of installation to download the core:");
+      print(
+          "wget https://raw.githubusercontent.com/omegaui/chat_desk_core/main/bin/chat_desk_core.exe");
+      return;
+    }
+    _serverProcess = await Process.start(
+        "${Platform.isLinux ? "./" : ""}chat_desk_core.exe", []);
     _serverProcess.stdout.transform(utf8.decoder).forEach((response) {
       try {
         dynamic log = jsonDecode(response);

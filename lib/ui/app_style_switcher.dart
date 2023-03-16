@@ -1,4 +1,4 @@
-import 'package:chat_desk/core/io/app_manager.dart';
+import 'package:chat_desk/io/app_manager.dart';
 import 'package:chat_desk/io/app_style.dart';
 import 'package:chat_desk/ui/utils.dart';
 import 'package:flutter/material.dart';

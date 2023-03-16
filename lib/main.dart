@@ -1,5 +1,5 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:chat_desk/core/io/app_manager.dart';
+import 'package:chat_desk/io/app_manager.dart';
 import 'package:chat_desk/io/app_style.dart';
 import 'package:chat_desk/ui/app_style_switcher.dart';
 import 'package:chat_desk/ui/screens/chat_room/chat_room.dart';
