@@ -36,11 +36,12 @@ curl "https://raw.githubusercontent.com/omegaui/chat_desk_linux_install_script/m
 ```
 
 ### Windows and Mac
-Apart from setup, you are required to download `chat_desk_core` at the installation root directory,
+Apart from setup, you are required to download `chat_desk_core` & `pubspec.yml` at the installation root directory,
 
 Run the following to download it,
 ```shell
 wget https://raw.githubusercontent.com/omegaui/chat_desk_core/main/bin/chat_desk_core.exe
+wget https://raw.githubusercontent.com/omegaui/chat_desk_core/main/bin/pubspec.yml
 ```
 
 ##  Build From Source
