@@ -21,7 +21,7 @@ jobs:
       - name: Enable linux build
         run: flutter config --enable-linux-desktop
       - name: Build artifacts
-        run: flutter build linux --debug
+        run: flutter build linux --release
       - name: Archive Release
         uses: thedoctor0/zip-release@master
         with:
@@ -52,7 +52,7 @@ jobs:
       - name: Enable windows build
         run: flutter config --enable-windows-desktop
       - name: Build artifacts
-        run: flutter build windows --debug
+        run: flutter build windows --release
       - name: Archive Release
         uses: thedoctor0/zip-release@master
         with:
@@ -83,7 +83,7 @@ jobs:
       - name: Enable macOS build
         run: flutter config --enable-macos-desktop
       - name: Build artifacts
-        run: flutter build macos --debug
+        run: flutter build macos --release
       - name: Archive Release
         uses: thedoctor0/zip-release@master
         with:
