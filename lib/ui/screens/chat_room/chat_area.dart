@@ -66,6 +66,13 @@ class ChatAreaState extends State<ChatArea> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    scrollController.dispose();
+    messageController.dispose();
+    super.dispose();
+  }
+
   Widget _buildSession() {
     return Column(
       key: const ValueKey("1"),
@@ -95,23 +102,40 @@ class ChatAreaState extends State<ChatArea> {
                 client: widget.client,
               ),
               Expanded(
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: AppUtils.buildTooltip(
-                      text: "Close Chat!",
-                      child: IconButton(
-                        onPressed: () => chatWith(null),
-                        icon: const Icon(
-                          Icons.close,
-                          color: Colors.grey,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Transform.rotate(
+                        angle: -1.5708,
+                        child: IconButton(
+                          onPressed: slideDown,
+                          icon: const Icon(
+                            Icons.keyboard_double_arrow_left,
+                            color: Colors.grey,
+                          ),
+                          iconSize: 32,
+                          splashRadius: 25,
                         ),
-                        iconSize: 20,
-                        splashRadius: 20,
                       ),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: AppUtils.buildTooltip(
+                        text: "Close Chat!",
+                        child: IconButton(
+                          onPressed: () => chatWith(null),
+                          icon: const Icon(
+                            Icons.close,
+                            color: Colors.grey,
+                          ),
+                          iconSize: 20,
+                          splashRadius: 20,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               )
             ],
@@ -273,12 +297,16 @@ class ChatAreaState extends State<ChatArea> {
     for (Message message in messages) {
       chats.add(Chat(message: message));
     }
+    slideDown();
+    return chats;
+  }
+
+  void slideDown() {
     if (scrollController.positions.isNotEmpty) {
       scrollController.animateTo(scrollController.position.maxScrollExtent + 60,
           duration: const Duration(milliseconds: 250),
           curve: Curves.easeInOutCubic);
     }
-    return chats;
   }
 
   @override
