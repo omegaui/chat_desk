@@ -67,6 +67,35 @@ wget https://raw.githubusercontent.com/omegaui/chat_desk_core/main/bin/chat_desk
 flutter run 
 ```
 
+## ⚡ Contributing
+
+Hey this is for you, if you want to help in building the project,
+
+Since, the core of the program is separated and independent of the UI,
+There seems a hassle of building both the core and the UI for testing changes/features,
+
+**⚡ But this is not the case with chat_desk ⚡**
+
+For debugging purpose, you can replace the spawner command in `server_handler.dart`,
+to enable embedded core,
+
+All you need to do is to replace,
+
+Only this line
+```dart
+    _serverProcess = await Process.start(
+"${Platform.isLinux ? "./" : ""}chat_desk_core.exe", []);
+```
+
+With this line
+```dart
+    _serverProcess = await Process.start(
+"dart", ["lib/core/server/server.dart"]);
+```
+
+_And thats all, your embedded server is ready for testing!!_
+
+
 <div align="center">
     <img src="images/preview.png">
     <img src="images/github-banner.png">
