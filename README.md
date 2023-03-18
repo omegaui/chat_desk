@@ -40,9 +40,14 @@ Apart from setup, you are required to download `chat_desk_core` & `pubspec.yml` 
 
 Run the following to download it,
 ```shell
-wget https://raw.githubusercontent.com/omegaui/chat_desk_core/main/bin/chat_desk_core.exe
-wget https://raw.githubusercontent.com/omegaui/chat_desk_core/main/bin/pubspec.yml
+wget https://raw.githubusercontent.com/omegaui/chat_desk_core/main/bin/<platform>/chat_desk_core.exe
+wget https://raw.githubusercontent.com/omegaui/chat_desk_core/main/pubspec.yml
 ```
+
+where, <platform> is either **windows** or **mac**. 
+
+#### Note that support for ![](https://img.icons8.com/color/32/null/mac-logo.png) mac is in progress.
+
 
 ##  Build From Source
 
@@ -57,7 +62,7 @@ cd chat_desk
 - Getting Dependencies
 ```shell
 flutter pub get
-wget https://raw.githubusercontent.com/omegaui/chat_desk_core/main/bin/chat_desk_core.exe
+wget https://raw.githubusercontent.com/omegaui/chat_desk_core/main/bin/<platform>/chat_desk_core.exe
 # for linux
 # sudo chmod 777 chat_desk_core.exe
 ```
