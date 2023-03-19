@@ -82,7 +82,7 @@ void joinServer(String host, int port,
   );
 
   thisClient.connect(host, port, (message) {
-    debugPrint("response from server: $message");
+    print("response from server: $message");
     dynamic response = jsonDecode(message);
     if (response['type'] == 'server-response') {
       if (response['code'] == connectionEstablished) {
