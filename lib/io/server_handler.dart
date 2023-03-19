@@ -32,7 +32,7 @@ class ServerHandler {
       print(
           "Run the command below in the root directory of installation to download the core:");
       print(
-          "wget https://raw.githubusercontent.com/omegaui/chat_desk_core/main/bin/chat_desk_core.exe");
+          "wget https://raw.githubusercontent.com/omegaui/chat_desk_core/main/bin/${Platform.isLinux ? "linux" : "windows"}/chat_desk_core.exe");
       return;
     }
     _serverProcess = await Process.start(
