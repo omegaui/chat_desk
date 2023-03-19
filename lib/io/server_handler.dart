@@ -50,7 +50,7 @@ class ServerHandler {
           }
         }
       } on Exception {
-        print(response);
+        debugPrint(response);
       }
     });
   }
@@ -63,7 +63,8 @@ class ServerHandler {
 Future<void> hostServer(String host, int port, String code,
     {onStartComplete, onStartFailed}) async {
   File("server-config.json").writeAsStringSync(
-      jsonEncode({"host": host, "port": port, "code": code}), flush: true);
+      jsonEncode({"host": host, "port": port, "code": code}),
+      flush: true);
   serverHandler = ServerHandler(host, port);
   serverHandler?.start(onStartComplete, onStartFailed);
 }

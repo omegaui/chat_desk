@@ -37,7 +37,7 @@ bool validUsername = true;
 bool validDescription = true;
 
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class HomeScreen extends StatelessWidget {
             width: 500),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: const [
             Expanded(child: UserSettings()),
             Expanded(child: ConnectionConsole()),
           ],
@@ -58,7 +58,7 @@ class HomeScreen extends StatelessWidget {
 }
 
 class UserSettings extends StatelessWidget {
-  UserSettings({super.key});
+  const UserSettings({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +68,7 @@ class UserSettings extends StatelessWidget {
       children: [
         AppUtils.buildTooltip(
           text: "Click to change Avatar",
-          child: Avatar(),
+          child: const Avatar(),
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -185,7 +185,7 @@ class UserSettings extends StatelessWidget {
 }
 
 class ConnectionConsole extends StatelessWidget {
-  ConnectionConsole({super.key});
+  const ConnectionConsole({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -423,7 +423,7 @@ class ConnectionConsole extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 18.0),
           child: Wrap(
             spacing: 10,
-            children: [
+            children: const [
               JoinButton(),
               HostButton(),
             ],
@@ -436,7 +436,7 @@ class ConnectionConsole extends StatelessWidget {
 }
 
 class JoinButton extends StatefulWidget {
-  JoinButton({super.key});
+  const JoinButton({super.key});
 
   @override
   State<JoinButton> createState() => _JoinButtonState();
@@ -550,7 +550,7 @@ class _JoinButtonState extends State<JoinButton> {
 }
 
 class HostButton extends StatefulWidget {
-  HostButton({super.key});
+  const HostButton({super.key});
 
   @override
   State<HostButton> createState() => _HostButtonState();
@@ -666,7 +666,7 @@ class _HostButtonState extends State<HostButton> {
 }
 
 class Avatar extends StatefulWidget {
-  Avatar({super.key});
+  const Avatar({super.key});
 
   @override
   State<Avatar> createState() => _AvatarState();
@@ -751,7 +751,7 @@ class _AvatarState extends State<Avatar> {
 }
 
 class StatusBar extends StatefulWidget {
-  StatusBar({super.key});
+  const StatusBar({super.key});
 
   @override
   State<StatusBar> createState() => StatusBarState();

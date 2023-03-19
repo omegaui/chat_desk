@@ -27,7 +27,7 @@ void push(Widget? screen) {
 }
 
 void pop() {
-  contentPaneKey.currentState?.changeTo(HomeScreen());
+  contentPaneKey.currentState?.changeTo(const HomeScreen());
 }
 
 void main() async {
@@ -79,7 +79,7 @@ class AppState extends State<App> {
                     Expanded(
                       child: ContentPane(
                         key: contentPaneKey,
-                        content: HomeScreen(),
+                        content: const HomeScreen(),
                       ),
                     ),
                   ],

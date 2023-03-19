@@ -16,7 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 class ChatArea extends StatefulWidget {
-  ChatArea({
+  const ChatArea({
     super.key,
     required this.client,
   });
@@ -327,7 +327,7 @@ class ChatAreaState extends State<ChatArea> {
 }
 
 class OnlineTracker extends StatefulWidget {
-  OnlineTracker({super.key, required this.client});
+  const OnlineTracker({super.key, required this.client});
 
   final Client client;
 

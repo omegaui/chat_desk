@@ -28,7 +28,9 @@ void refreshUserTabs() async {
         'http://$superHost:$superPort/onboard/${thisClient.toString()}'));
     var urlDecoded = Uri.decodeFull(response.body);
     userTabKey.currentState?.rebuild(users: jsonDecode(urlDecoded)['users']);
-  } on Exception {}
+  } on Exception {
+    debugPrint("Failed to get user list from server!");
+  }
 }
 
 class ChatRoom extends StatefulWidget {
