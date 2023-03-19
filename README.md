@@ -26,6 +26,10 @@ A self-hosted chat application for desktop written in Flutter!
 - [ ] 🎽 Multi-Theming 
 
 ## ![](https://img.icons8.com/external-itim2101-flat-itim2101/32/null/external-test-online-education-itim2101-flat-itim2101.png) Testing (requires dart installed)
+**Finely Tested on Windows and Linux!**
+
+**I don't own a mac, So, Mac Testers are needed! Any help would be very grateful 💕**
+
 ### ![](https://img.icons8.com/color/32/null/linux--v1.png) Linux, ![](https://img.icons8.com/fluency/32/null/windows-10.png) Windows and ![](https://img.icons8.com/color/32/null/mac-logo.png) MacOS
 Head over to **Releases**
 
@@ -103,5 +107,13 @@ _And thats all, your embedded server is ready for testing!!_
 
 <div align="center">
     <img src="images/preview.png">
+    <h4 style="font-style: italic;">Dark Mode Banner</h4>
+    <br>
+    <br>
     <img src="images/github-banner.png">
+    <h4 style="font-style: italic;">Light Mode Banner</h4>
+    <br>
+    <br>
+    <img src="images/preview-windows.png">
+    <h4 style="font-style: italic;">Windows 11 Preview</h4>
 </div>
