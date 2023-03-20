@@ -17,13 +17,13 @@ void main() async {
   serverContext = await shelfRun(_initServer,
       defaultBindAddress: config['host'],
       defaultBindPort: config['port'],
-      onStartFailed: (e) =>
-          streamLog(initError, "Cannot Launch Server at this address!"),
-      onStarted: (address, portNumber) {
+      onStartFailed: (e) async =>
+          await streamLog(initError, "Cannot Launch Server at this address!"),
+      onStarted: (address, portNumber) async {
         host = address.toString();
         port = portNumber;
         code = config['code'];
-        streamLog(initSuccess, "Server Started Successfully! $address");
+        await streamLog(initSuccess, "Server Started Successfully! $address");
       },
       onWillClose: () {
         terminateAllSessions();

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 const initError = 101;
 const initSuccess = 102;
@@ -13,8 +14,9 @@ const chatSwitched = 301;
 const chatCompanion = 302;
 const serverClosing = -1;
 
-void streamLog(int code, String message) {
-  print(createResponse(code, message));
+Future<void> streamLog(int code, String message) async {
+  stdout.writeln(createResponse(code, message));
+  await stdout.flush();
 }
 
 String createResponse(int code, dynamic response, {dynamic cause}) {
