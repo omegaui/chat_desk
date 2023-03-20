@@ -37,20 +37,30 @@ class ServerHandler {
     }
     _serverProcess = await Process.start(
         "${Platform.isLinux ? "./" : ""}chat_desk_core.exe", []);
-    _serverProcess.stdout.transform(utf8.decoder).forEach((response) {
-      try {
-        dynamic log = jsonDecode(response);
-        if (log['type'] == 'server-response') {
-          int code = log['code'];
-          if (code == initSuccess) {
-            onStartComplete.call();
-          } else if (code == initError) {
-            serverHandler = null;
-            onStartFailed.call();
+    _serverProcess.stdout.transform(utf8.decoder).forEach((responses) {
+      if(!responses.contains("\n")){
+        responses += "\n";
+      }
+      for(var response in responses.split("\n")) {
+        if (response.startsWith("{")) {
+          try {
+            dynamic log = jsonDecode(response);
+            debugPrint("decoded response: $log");
+            if (log['type'] == 'server-response') {
+              int code = log['code'];
+              if (code == initSuccess) {
+                onStartComplete.call();
+              } else if (code == initError) {
+                serverHandler = null;
+                onStartFailed.call();
+              }
+            }
+          } on Exception {
+            debugPrint("cannot decode response: $response");
           }
+        } else {
+          debugPrint("external log: $response");
         }
-      } on Exception {
-        debugPrint(response);
       }
     });
   }
