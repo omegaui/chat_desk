@@ -38,10 +38,10 @@ class ServerHandler {
     _serverProcess = await Process.start(
         "${Platform.isLinux ? "./" : ""}chat_desk_core.exe", []);
     _serverProcess.stdout.transform(utf8.decoder).forEach((responses) {
-      if(!responses.contains("\n")){
+      if (!responses.contains("\n")) {
         responses += "\n";
       }
-      for(var response in responses.split("\n")) {
+      for (var response in responses.split("\n")) {
         if (response.startsWith("{")) {
           try {
             dynamic log = jsonDecode(response);
