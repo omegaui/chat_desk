@@ -21,10 +21,13 @@ class TitleBar extends StatelessWidget {
               height: 40,
               child: Row(
                 children: [
-                  Icon(
-                    Icons.chat,
-                    color: currentStyle.getTextColor(),
-                    size: 36,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: const Image(
+                      image: AssetImage('assets/icon/app_icon_64.png'),
+                      width: 36,
+                      height: 36,
+                    ),
                   ),
                   const SizedBox(width: 10),
                   Text(
