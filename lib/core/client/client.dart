@@ -5,10 +5,19 @@ import 'package:chat_desk/core/io/logger.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class Client {
+  /// Stores username.
   String id;
+
+  /// Stores username.
   String description;
+
+  /// Stores server code.
   String code;
+
+  /// Stores user's avatar in base64 url encoded form.
   String avatar;
+
+  /// object of the connection channel.
   late WebSocketChannel channel;
 
   Client(
