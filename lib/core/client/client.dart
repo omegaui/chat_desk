@@ -8,7 +8,7 @@ class Client {
   /// Stores username.
   String id;
 
-  /// Stores username.
+  /// Stores description of the user.
   String description;
 
   /// Stores server code.
@@ -20,12 +20,14 @@ class Client {
   /// object of the connection channel.
   late WebSocketChannel channel;
 
-  Client(
-      {required this.id,
-      required this.description,
-      required this.code,
-      required this.avatar});
+  Client({
+    required this.id,
+    required this.description,
+    required this.code,
+    required this.avatar,
+  });
 
+  /// Connects to the server & starts listening to the stream.
   void connect(String host, int port, Function(dynamic) listener) {
     channel = WebSocketChannel.connect(
         Uri.parse("ws://$host:$port/connect/${toString()}"));
