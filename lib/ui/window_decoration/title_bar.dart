@@ -2,6 +2,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:chat_desk/io/app_style.dart';
 import 'package:chat_desk/io/server_handler.dart';
 import 'package:chat_desk/main.dart';
+import 'package:chat_desk/ui/screens/app_info_screen.dart';
 import 'package:chat_desk/ui/screens/home_screen.dart';
 import 'package:chat_desk/ui/utils.dart';
 import 'package:flutter/material.dart';
@@ -21,12 +22,15 @@ class TitleBar extends StatelessWidget {
               height: 40,
               child: Row(
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: const Image(
-                      image: AssetImage('assets/icon/app_icon_64.png'),
-                      width: 36,
-                      height: 36,
+                  GestureDetector(
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AppInfoScreen())),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: const Image(
+                        image: AssetImage('assets/icon/app_icon_64.png'),
+                        width: 36,
+                        height: 36,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 10),
