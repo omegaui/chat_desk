@@ -94,9 +94,7 @@ class AppInfoScreen extends StatelessWidget {
               alignment: Alignment.topRight,
               child: Padding(
                 padding: const EdgeInsets.all(40.0),
-                child: Container(
-
-                ),
+                child: Container(),
               ),
             ),
             Align(
