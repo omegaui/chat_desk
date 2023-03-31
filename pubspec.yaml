@@ -90,6 +90,9 @@ flutter:
     - family: Itim
       fonts:
         - asset: fonts/Itim.ttf
+    - family: Audiowide
+      fonts:
+        - asset: fonts/audiowide.ttf
     - family: Sen
       fonts:
         - asset: fonts/Sen.ttf

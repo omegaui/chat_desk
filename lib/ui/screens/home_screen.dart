@@ -80,10 +80,9 @@ class UserSettings extends StatelessWidget {
                   child: TextField(
                     controller: usernameController,
                     style: TextStyle(
-                      color: currentStyle.getTextColor(),
-                      fontFamily: "Sen",
-                      fontSize: 18,
-                    ),
+                        color: currentStyle.getTextColor(),
+                        fontFamily: "Audiowide",
+                        fontSize: 18),
                     cursorColor: Colors.greenAccent,
                     decoration: InputDecoration(
                       enabledBorder: const UnderlineInputBorder(
