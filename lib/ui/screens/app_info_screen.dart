@@ -3,7 +3,6 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:chat_desk/io/app_style.dart';
 import 'package:chat_desk/ui/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class AppInfoScreen extends StatelessWidget {
   const AppInfoScreen({super.key});
@@ -23,10 +22,13 @@ class AppInfoScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 250),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image.asset(
-                      "assets/icon/app_icon_256.png",
+                  Hero(
+                    tag: 'icon',
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset(
+                        "assets/icon/app_icon_256.png",
+                      ),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -59,25 +61,28 @@ class AppInfoScreen extends StatelessWidget {
                           color: currentStyle.getTextColor(),
                         ),
                       ),
-                      AnimatedTextKit(
-                        animatedTexts: [
-                          ColorizeAnimatedText(
-                            "omegaui",
-                            textStyle: TextStyle(
-                              fontFamily: "Audiowide",
-                              fontSize: 22,
-                              color: currentStyle.getTextColor(),
+                      Hero(
+                        tag: 'buttons',
+                        child: AnimatedTextKit(
+                          animatedTexts: [
+                            ColorizeAnimatedText(
+                              "omegaui",
+                              textStyle: TextStyle(
+                                fontFamily: "Audiowide",
+                                fontSize: 22,
+                                color: currentStyle.getTextColor(),
+                              ),
+                              colors: [
+                                Colors.pink,
+                                Colors.grey,
+                                Colors.blue,
+                                Colors.white,
+                              ],
                             ),
-                            colors: [
-                              Colors.pink,
-                              Colors.grey,
-                              Colors.blue,
-                              Colors.white,
-                            ],
-                          ),
-                        ],
-                        isRepeatingAnimation: true,
-                        repeatForever: true,
+                          ],
+                          isRepeatingAnimation: true,
+                          repeatForever: true,
+                        ),
                       ),
                       const SizedBox(height: 30),
                     ],
@@ -89,18 +94,8 @@ class AppInfoScreen extends StatelessWidget {
               alignment: Alignment.topRight,
               child: Padding(
                 padding: const EdgeInsets.all(40.0),
-                child: AppUtils.buildTooltip(
-                  text: "Visit Repo",
-                  child: IconButton(
-                    onPressed: () async {
-                      var url = "https://github.com/omegaui/chat_desk";
-                      if (await canLaunchUrlString(url)) {
-                        await launchUrlString(url);
-                      }
-                    },
-                    iconSize: 48,
-                    icon: Image.asset('assets/icon/icons8-github-96.png'),
-                  ),
+                child: Container(
+
                 ),
               ),
             ),
@@ -112,11 +107,11 @@ class AppInfoScreen extends StatelessWidget {
                   text: "Close",
                   child: IconButton(
                     onPressed: () => Navigator.pop(context),
-                    iconSize: 24,
                     icon: Icon(
                       Icons.close,
                       color: currentStyle.getTextColor(),
                     ),
+                    iconSize: 24,
                   ),
                 ),
               ),

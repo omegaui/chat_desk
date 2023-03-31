@@ -23,13 +23,17 @@ class TitleBar extends StatelessWidget {
               child: Row(
                 children: [
                   GestureDetector(
-                    onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const AppInfoScreen())),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: const Image(
-                        image: AssetImage('assets/icon/app_icon_64.png'),
-                        width: 36,
-                        height: 36,
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const AppInfoScreen())),
+                    child: Hero(
+                      tag: 'icon',
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: const Image(
+                          image: AssetImage('assets/icon/app_icon_64.png'),
+                          width: 36,
+                          height: 36,
+                        ),
                       ),
                     ),
                   ),
@@ -44,7 +48,10 @@ class TitleBar extends StatelessWidget {
                   const Expanded(
                     child: Align(
                       alignment: Alignment.centerRight,
-                      child: WindowButtons(),
+                      child: Hero(
+                        tag: 'buttons',
+                        child: WindowButtons(),
+                      ),
                     ),
                   ),
                 ],
