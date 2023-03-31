@@ -347,6 +347,13 @@ class OnlineTrackerState extends State<OnlineTracker> {
     if (show) {
       return Lottie.asset('assets/lottie-animations/online.json', width: 40);
     }
-    return const SizedBox();
+    return Text(
+      "(Offline)",
+      style: TextStyle(
+          fontFamily: "Sen",
+          fontSize: 14,
+          fontStyle: FontStyle.italic,
+          color: currentStyle.getTextColor()),
+    );
   }
 }
