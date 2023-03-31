@@ -107,16 +107,19 @@ class ChatAreaState extends State<ChatArea> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Transform.rotate(
-                        angle: -1.5708,
-                        child: IconButton(
-                          onPressed: slideDown,
-                          icon: const Icon(
-                            Icons.keyboard_double_arrow_left,
-                            color: Colors.grey,
+                      child: AppUtils.buildTooltip(
+                        text: "Scroll to bottom",
+                        child: Transform.rotate(
+                          angle: -1.5708,
+                          child: IconButton(
+                            onPressed: slideDown,
+                            icon: const Icon(
+                              Icons.keyboard_double_arrow_left,
+                              color: Colors.grey,
+                            ),
+                            iconSize: 32,
+                            splashRadius: 25,
                           ),
-                          iconSize: 32,
-                          splashRadius: 25,
                         ),
                       ),
                     ),

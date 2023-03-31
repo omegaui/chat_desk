@@ -87,7 +87,7 @@ class ChatRoomState extends State<ChatRoom> {
                 style: TextStyle(
                   fontFamily: "Sen",
                   fontSize: 16,
-                  color: currentStyle.getTextColor(),
+                  color: currentStyle.getTextColor().withOpacity(0.8),
                 ),
               ),
             ],
