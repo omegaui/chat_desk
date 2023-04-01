@@ -119,7 +119,7 @@ class AppInfoScreen extends StatelessWidget {
                   child: AppUtils.buildTooltip(
                     text: "Visit Repo",
                     child: Container(
-                      width: 200,
+                      width: 160,
                       height: 60,
                       decoration: BoxDecoration(
                         color: currentStyleMode == AppStyle.light
@@ -155,8 +155,13 @@ class AppInfoScreen extends StatelessWidget {
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
+                                  Image.asset(
+                                    'assets/icon/icons8-github-96.png',
+                                    width: 32,
+                                  ),
+                                  const SizedBox(width: 10),
                                   Text(
-                                    "${snapshot.data} Stars",
+                                    "${snapshot.data}",
                                     style: TextStyle(
                                       fontFamily: "Sen",
                                       fontSize: 22,
@@ -167,20 +172,6 @@ class AppInfoScreen extends StatelessWidget {
                                     Icons.star,
                                     color: Colors.yellow.shade800,
                                     size: 22,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    "on",
-                                    style: TextStyle(
-                                      fontFamily: "Sen",
-                                      fontSize: 22,
-                                      color: currentStyle.getTextColor(),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Image.asset(
-                                    'assets/icon/icons8-github-96.png',
-                                    width: 32,
                                   ),
                                 ],
                               ),
