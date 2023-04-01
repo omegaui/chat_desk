@@ -50,7 +50,7 @@ wget https://raw.githubusercontent.com/omegaui/chat_desk_core/main/pubspec.yml
 
 where, platform is either **windows** or **mac**. 
 
-#### Note that support for ![](https://img.icons8.com/color/32/null/mac-logo.png) mac is in progress.
+#### ![](https://img.icons8.com/color/24/null/mac-logo.png) mac is now 🎉 supported (experimental).
 
 
 ##  Build From Source
