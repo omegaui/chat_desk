@@ -83,7 +83,7 @@ class ChatRoomState extends State<ChatRoom> {
                 splashRadius: 15,
               ),
               Text(
-                "Your Chat Room",
+                "Your Chat Room ($superHost:$superPort)",
                 style: TextStyle(
                   fontFamily: "Sen",
                   fontSize: 16,
