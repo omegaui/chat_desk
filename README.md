@@ -14,7 +14,7 @@ A self-hosted chat application for desktop written in Flutter!
 
 ## ![](https://img.icons8.com/external-basicons-color-danil-polshin/32/null/external-space-space-basicons-color-danil-polshin-13.png) Features
 - 🚀 Self-Host your own Chat Rooms
-- 🔐 Set a Server Code or leave empty for an open connection server
+- 🔐 Set a Server Code (Users need this code additionally with server address to connect)
 - 💙 Complete Private Chatting
 - ❌ No Data Collection
 - 🪨 Unbreakable Core
