@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:chat_desk/core/client/client.dart';
-import 'package:chat_desk/io/app_manager.dart';
 import 'package:chat_desk/core/io/logger.dart';
 import 'package:chat_desk/core/io/message.dart';
+import 'package:chat_desk/io/app_manager.dart';
 import 'package:chat_desk/main.dart';
 import 'package:chat_desk/ui/screens/chat_room/chat_room.dart';
 import 'package:chat_desk/ui/screens/chat_room/user_tabs.dart';
@@ -36,7 +36,7 @@ class ServerHandler {
       return;
     }
     _serverProcess = await Process.start(
-        "${Platform.isLinux ? "./" : ""}chat_desk_core.exe", []);
+        "${!Platform.isWindows ? "./" : ""}chat_desk_core.exe", []);
     _serverProcess.stdout.transform(utf8.decoder).forEach((responses) {
       if (!responses.contains("\n")) {
         responses += "\n";

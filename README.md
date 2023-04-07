@@ -93,7 +93,7 @@ All you need to do is to replace,
 Only this line
 ```dart
     _serverProcess = await Process.start(
-"${Platform.isLinux ? "./" : ""}chat_desk_core.exe", []);
+"${!Platform.isWindows ? "./" : ""}chat_desk_core.exe", []);
 ```
 
 With this line
