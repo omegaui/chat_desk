@@ -25,6 +25,16 @@ class ServerHandler {
 
   ServerHandler(this.host, this.port);
 
+  String _getPlatform() {
+    if (Platform.isWindows) {
+      return "windows";
+    } else if (Platform.isLinux) {
+      return "linux";
+    } else {
+      return "mac";
+    }
+  }
+
   void start(Function onStartComplete, Function onStartFailed) async {
     var coreFile = File("chat_desk_core.exe");
     if (!coreFile.existsSync()) {
@@ -32,7 +42,7 @@ class ServerHandler {
       print(
           "Run the command below in the root directory of installation to download the core:");
       print(
-          "wget https://raw.githubusercontent.com/omegaui/chat_desk_core/main/bin/${Platform.isLinux ? "linux" : "windows"}/chat_desk_core.exe");
+          "wget https://raw.githubusercontent.com/omegaui/chat_desk_core/main/bin/${_getPlatform()}/chat_desk_core.exe");
       return;
     }
     _serverProcess = await Process.start(
