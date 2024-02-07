@@ -1,20 +1,3 @@
-# GPM's Build Specification
-# This format is intended to be used for repos which do not create releases
-# You can provide the commands on how to build from source for target platform
-# Make sure you put this file in the root of your repo.
-
-# GPM even supports updating these type of repos by comparing the commit hashes.
-
-# Build from source process 
-# if building is common to all platform use the [any] key or provide commands for each platform you target,
-# instead of any use one of 
-# 'windows', 'macos', 'linux', 'debian', 'fedora', 'arch' or 'other'
-# the 'other' key should only be used for a platform other than the supported ones
 build:
   windows: flutter pub get
   flutter build exe --release
-
-
-# !! IMPORTANT !!
-# Make sure that after the build process finishes you should have an executable file with the name of the repo at your project's root
-# Example: after executing the build process of (say) chat_desk, then, there should be an executable file at the root
