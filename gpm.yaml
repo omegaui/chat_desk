@@ -1,3 +1,8 @@
 build:
-  windows: flutter pub get
-  flutter build exe --release
+  any:
+    preserve:
+      - bin/
+      - lib/
+    steps:
+      - name: Echoing
+        run: echo hello
